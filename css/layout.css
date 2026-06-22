@@ -1,0 +1,139 @@
+.split-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+  gap: 70px;
+  align-items: start;
+}
+
+.intro-copy {
+  display: grid;
+  gap: 28px;
+  color: var(--color-muted);
+  font-size: 18px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.benefits-grid article {
+  min-height: 94px;
+  padding: 20px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  color: var(--color-forest);
+  background: var(--color-white);
+  box-shadow: 0 16px 32px rgba(17, 38, 32, 0.06);
+  font-weight: 800;
+}
+
+.format-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.format-card {
+  position: relative;
+  display: grid;
+  min-height: 314px;
+  align-content: space-between;
+  gap: 24px;
+  padding: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(23, 56, 47, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-card);
+}
+
+.format-card::after {
+  content: "";
+  position: absolute;
+  right: -45px;
+  bottom: -45px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(217, 180, 111, 0.18);
+}
+
+.format-card h3,
+.format-card p,
+.format-card a,
+.format-card span {
+  position: relative;
+  z-index: 1;
+}
+
+.format-card p {
+  color: var(--color-muted);
+}
+
+.format-card a {
+  width: fit-content;
+  color: var(--color-forest);
+  font-weight: 900;
+}
+
+.format-card__number {
+  color: var(--color-gold-2);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.format-card--featured {
+  color: var(--color-white);
+  background: linear-gradient(145deg, #183e34, #0f2923);
+}
+
+.format-card--featured p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.format-card--featured a {
+  color: var(--color-gold);
+}
+
+.request-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.75fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.request-layout > div:first-child {
+  position: sticky;
+  top: 120px;
+  display: grid;
+  gap: 22px;
+}
+
+.request-layout h2 {
+  margin-top: 10px;
+}
+
+.request-layout p {
+  max-width: 560px;
+  color: var(--color-muted);
+  font-size: 18px;
+}
+
+.contact-card {
+  display: grid;
+  gap: 12px;
+  max-width: 420px;
+  margin-top: 10px;
+  padding: 22px;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+
+.contact-card a {
+  color: var(--color-forest);
+  font-weight: 900;
+}

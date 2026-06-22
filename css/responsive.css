@@ -1,0 +1,101 @@
+@media (max-width: 1080px) {
+  .main-nav {
+    display: none;
+  }
+
+  .map-layout,
+  .request-layout,
+  .split-grid,
+  .section-head--row {
+    grid-template-columns: 1fr;
+  }
+
+  .lot-card,
+  .request-layout > div:first-child {
+    position: static;
+  }
+}
+
+@media (max-width: 860px) {
+  .section {
+    padding: 78px 0;
+  }
+
+  .container {
+    width: min(100% - 28px, var(--container));
+  }
+
+  .site-header {
+    top: 10px;
+    width: calc(100% - 20px);
+    min-height: 62px;
+    padding: 10px;
+  }
+
+  .brand__text small,
+  .header-phone {
+    display: none;
+  }
+
+  .hero__content {
+    padding-top: 92px;
+  }
+
+  .hero__stats,
+  .format-grid,
+  .houses-grid,
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .format-card {
+    min-height: auto;
+  }
+
+  .map-panel {
+    padding: 10px;
+    border-radius: 22px;
+  }
+
+  .map-canvas {
+    border-radius: 16px;
+  }
+
+  .lot-label {
+    font-size: 22px;
+  }
+
+  .footer-grid {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__actions {
+    display: grid;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hero__stats {
+    margin-top: 24px;
+  }
+
+  .request-form {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .map-toolbar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .chip {
+    flex: 0 0 auto;
+  }
+}

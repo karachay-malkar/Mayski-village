@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Майский Development Project — коттеджный посёлок</title>
+    <meta
+      name="description"
+      content="Премиальный одностраничный сайт коттеджного посёлка Майский с интерактивным генпланом, выбором участка и заявкой на коммерческое предложение."
+    />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/houses.css" />
+    <link rel="stylesheet" href="css/map.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script defer src="js/data.js"></script>
+    <script defer src="js/ui.js"></script>
+    <script defer src="js/map.js"></script>
+    <script defer src="js/form.js"></script>
+    <script defer src="js/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="На главный экран">
+        <span class="brand__mark">M</span>
+        <span class="brand__text">
+          <strong>Майский</strong>
+          <small>Development Project</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Основная навигация">
+        <a href="#formats">Форматы</a>
+        <a href="#houses">Дома</a>
+        <a href="#masterplan">Генплан</a>
+        <a href="#request">Заявка</a>
+      </nav>
+
+      <a class="header-phone" href="tel:+79000000000">+7 900 000-00-00</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero__image" src="assets/images/hero.png" alt="Современный дом в зелёном коттеджном посёлке" />
+        <div class="hero__overlay"></div>
+        <div class="hero__content container">
+          <p class="eyebrow">Коттеджный посёлок у зелёной зоны</p>
+          <h1 id="hero-title">Майский Development Project</h1>
+          <p class="hero__lead">
+            Участки и современные дома в камерном посёлке с продуманным генпланом, приватной атмосферой и выбором формата покупки.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#masterplan">Выбрать участок</a>
+            <a class="btn btn--glass" href="#request">Получить консультацию</a>
+          </div>
+          <div class="hero__stats" aria-label="Ключевые параметры проекта">
+            <div><strong>35+</strong><span>участков</span></div>
+            <div><strong>3</strong><span>формата покупки</span></div>
+            <div><strong>24/7</strong><span>онлайн-заявка</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro-section" aria-labelledby="intro-title">
+        <div class="container split-grid">
+          <div>
+            <p class="eyebrow">О проекте</p>
+            <h2 id="intro-title">Простой путь от выбора участка до персонального предложения</h2>
+          </div>
+          <div class="intro-copy">
+            <p>
+              Сайт помогает клиенту увидеть будущий посёлок, сравнить форматы покупки, выбрать участок на генплане и сразу отправить запрос на коммерческое предложение.
+            </p>
+            <div class="benefits-grid">
+              <article>Продуманная сетка участков</article>
+              <article>Готовые проекты домов</article>
+              <article>Индивидуальное строительство</article>
+              <article>Цена и площадь по клику</article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="formats" class="section section--warm" aria-labelledby="formats-title">
+        <div class="container section-head">
+          <p class="eyebrow">Форматы покупки</p>
+          <h2 id="formats-title">Выберите удобный сценарий</h2>
+        </div>
+
+        <div class="container format-grid">
+          <article class="format-card">
+            <span class="format-card__number">01</span>
+            <h3>Участок + готовый дом</h3>
+            <p>Выберите участок и один из готовых проектов домов от застройщика.</p>
+            <a href="#houses">Посмотреть дома</a>
+          </article>
+          <article class="format-card format-card--featured">
+            <span class="format-card__number">02</span>
+            <h3>Участок + ваш проект</h3>
+            <p>Можно построить дом по индивидуальному проекту с адаптацией под выбранный участок.</p>
+            <a href="#request">Отправить запрос</a>
+          </article>
+          <article class="format-card">
+            <span class="format-card__number">03</span>
+            <h3>Только участок</h3>
+            <p>Покупка земельного участка с самостоятельным строительством в будущем.</p>
+            <a href="#masterplan">Выбрать участок</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="houses" class="section houses-section" aria-labelledby="houses-title">
+        <div class="container section-head section-head--row">
+          <div>
+            <p class="eyebrow">Архитектура</p>
+            <h2 id="houses-title">Референсы домов и планировок</h2>
+          </div>
+          <p>На первом этапе это демонстрационные карточки. Позже сюда можно добавить реальные планировки, PDF и стоимость строительства.</p>
+        </div>
+
+        <div class="container houses-grid" data-houses-grid></div>
+      </section>
+
+      <section id="masterplan" class="section section--dark map-section" aria-labelledby="map-title">
+        <div class="container section-head section-head--row section-head--dark">
+          <div>
+            <p class="eyebrow">Интерактивный генплан</p>
+            <h2 id="map-title">Выберите участок на карте</h2>
+          </div>
+          <p>Наведите курсор или нажмите на участок, чтобы увидеть площадь, цену, статус и отправить запрос.</p>
+        </div>
+
+        <div class="container map-layout">
+          <div class="map-panel">
+            <div class="map-toolbar" aria-label="Фильтр участков">
+              <button class="chip is-active" type="button" data-status-filter="all">Все</button>
+              <button class="chip" type="button" data-status-filter="available">Свободные</button>
+              <button class="chip" type="button" data-status-filter="reserved">Бронь</button>
+              <button class="chip" type="button" data-status-filter="sold">Проданы</button>
+            </div>
+
+            <div class="map-canvas" data-map-canvas>
+              <img src="assets/images/masterplan.png" alt="Генплан коттеджного посёлка Майский" />
+              <svg class="lot-overlay" viewBox="0 0 960 720" preserveAspectRatio="xMidYMid meet" data-lot-overlay aria-label="Кликабельные участки генплана"></svg>
+              <div class="map-tooltip" data-map-tooltip hidden></div>
+            </div>
+
+            <div class="map-legend" aria-label="Статусы участков">
+              <span><i class="legend-dot legend-dot--available"></i>Свободен</span>
+              <span><i class="legend-dot legend-dot--reserved"></i>Бронь</span>
+              <span><i class="legend-dot legend-dot--sold"></i>Продан</span>
+            </div>
+          </div>
+
+          <aside class="lot-card" data-lot-card aria-live="polite">
+            <p class="eyebrow">Выбранный участок</p>
+            <h3>Нажмите на участок</h3>
+            <p class="muted">Карточка покажет площадь, стоимость, статус и кнопку заявки.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="request" class="section request-section" aria-labelledby="request-title">
+        <div class="container request-layout">
+          <div>
+            <p class="eyebrow">Коммерческое предложение</p>
+            <h2 id="request-title">Получите расчёт по выбранному участку</h2>
+            <p>
+              Оставьте контакты. В сообщении автоматически подставится выбранный участок и интересующий формат покупки.
+            </p>
+            <div class="contact-card">
+              <a href="tel:+79000000000">+7 900 000-00-00</a>
+              <a href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a>
+              <a href="mailto:sales@example.com">sales@example.com</a>
+            </div>
+          </div>
+
+          <form class="request-form" data-request-form>
+            <label>
+              <span>Имя</span>
+              <input type="text" name="name" placeholder="Ваше имя" required />
+            </label>
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="phone" placeholder="+7 ___ ___-__-__" required />
+            </label>
+            <label>
+              <span>Интересующий участок</span>
+              <input type="text" name="lot" placeholder="Выберите участок на генплане" data-selected-lot-input readonly />
+            </label>
+            <label>
+              <span>Формат покупки</span>
+              <select name="format" required>
+                <option value="Участок + готовый дом">Участок + готовый дом</option>
+                <option value="Участок + дом по вашему проекту">Участок + дом по вашему проекту</option>
+                <option value="Только участок">Только участок</option>
+              </select>
+            </label>
+            <label>
+              <span>Комментарий</span>
+              <textarea name="comment" rows="4" placeholder="Например: интересует дом 120 м², срок строительства, рассрочка"></textarea>
+            </label>
+            <button class="btn btn--primary btn--full" type="submit">Получить коммерческое предложение</button>
+            <p class="form-note">В первом варианте заявка открывается как готовое сообщение в WhatsApp. Backend подключим на следующем этапе.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>Майский Development Project</strong>
+          <p>Одностраничный рекламно-продажный сайт с интерактивным выбором участка.</p>
+        </div>
+        <a href="#top">Наверх</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,249 @@
+.map-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.map-section::before {
+  content: "";
+  position: absolute;
+  inset: auto -160px -280px auto;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: rgba(217, 180, 111, 0.1);
+  pointer-events: none;
+}
+
+.map-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 20px;
+  align-items: start;
+}
+
+.map-panel,
+.lot-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(14px);
+}
+
+.map-panel {
+  padding: 16px;
+}
+
+.map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.chip {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.chip.is-active {
+  color: var(--color-forest-2);
+  border-color: transparent;
+  background: var(--color-gold);
+}
+
+.map-canvas {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #dfe9da;
+}
+
+.map-canvas img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+.lot-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lot-shape {
+  cursor: pointer;
+  stroke-width: 3.5;
+  transition: opacity var(--transition), fill var(--transition), stroke var(--transition), filter var(--transition);
+  vector-effect: non-scaling-stroke;
+}
+
+.lot-shape:hover,
+.lot-shape.is-selected {
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.28));
+}
+
+.lot-shape.is-selected {
+  stroke: #ffffff;
+  stroke-width: 5;
+}
+
+.lot-shape.is-dimmed {
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.lot-shape--available {
+  fill: rgba(60, 154, 112, 0.48);
+  stroke: rgba(129, 229, 177, 0.95);
+}
+
+.lot-shape--reserved {
+  fill: rgba(217, 180, 111, 0.58);
+  stroke: rgba(255, 231, 162, 0.95);
+}
+
+.lot-shape--sold {
+  fill: rgba(119, 126, 120, 0.54);
+  stroke: rgba(230, 230, 230, 0.9);
+}
+
+.lot-label {
+  fill: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: rgba(15, 41, 35, 0.72);
+  stroke-width: 4px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.map-tooltip {
+  position: fixed;
+  z-index: 60;
+  max-width: 230px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  color: var(--color-white);
+  background: rgba(15, 41, 35, 0.92);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.map-tooltip strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.legend-dot--available {
+  background: #4ab078;
+}
+
+.legend-dot--reserved {
+  background: var(--color-gold);
+}
+
+.legend-dot--sold {
+  background: #858a86;
+}
+
+.lot-card {
+  position: sticky;
+  top: 110px;
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.lot-card h3 {
+  font-size: 30px;
+}
+
+.lot-card__status {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.lot-card__status--available {
+  color: #102b23;
+  background: #9be6be;
+}
+
+.lot-card__status--reserved {
+  color: #3b2b00;
+  background: #f1d27d;
+}
+
+.lot-card__status--sold {
+  color: #2f3330;
+  background: #d7dad6;
+}
+
+.lot-card__data {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lot-card__data div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.lot-card__data span:first-child {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.lot-card__data strong {
+  text-align: right;
+}
+
+.lot-card__actions {
+  display: grid;
+  gap: 10px;
+}
