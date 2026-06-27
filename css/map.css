@@ -63,14 +63,18 @@
 .map-canvas {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-height: min(78vh, 920px);
+  aspect-ratio: 975 / 1475;
   border-radius: 22px;
-  background: #dfe9da;
+  background: #f4f3ee;
 }
 
 .map-canvas img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   user-select: none;
 }
 
@@ -83,7 +87,7 @@
 
 .lot-shape {
   cursor: pointer;
-  stroke-width: 3.5;
+  stroke-width: 1.8;
   transition: opacity var(--transition), fill var(--transition), stroke var(--transition), filter var(--transition);
   vector-effect: non-scaling-stroke;
 }
@@ -95,7 +99,7 @@
 
 .lot-shape.is-selected {
   stroke: #ffffff;
-  stroke-width: 5;
+  stroke-width: 3.2;
 }
 
 .lot-shape.is-dimmed {
