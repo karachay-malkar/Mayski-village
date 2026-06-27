@@ -1,10 +1,29 @@
 (function () {
   function formatPrice(value) {
+    if (value === null || value === undefined || value === "") {
+      return "по запросу";
+    }
+
     return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
   }
 
   function formatArea(value) {
-    return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 }).format(value) + " сот.";
+    if (value === null || value === undefined || value === "") {
+      return "площадь уточняется";
+    }
+
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+      return String(value);
+    }
+
+    if (number >= 100) {
+      const sotka = number / 100;
+      return `${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(number)} м² / ${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 }).format(sotka)} сот.`;
+    }
+
+    return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 }).format(number) + " сот.";
   }
 
   function getLotStatusLabel(status) {

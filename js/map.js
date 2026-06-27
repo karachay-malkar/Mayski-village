@@ -23,6 +23,20 @@
     return document.createElementNS("http://www.w3.org/2000/svg", name);
   }
 
+  function configureMapCanvas() {
+    const config = window.MAYSKI_DATA.mapConfig;
+    const image = document.querySelector("[data-map-image]");
+    const overlay = document.querySelector("[data-lot-overlay]");
+
+    if (!config || !config.viewBox || !overlay) return;
+
+    overlay.setAttribute("viewBox", `0 0 ${config.viewBox.width} ${config.viewBox.height}`);
+
+    if (image && config.image) {
+      image.src = config.image;
+    }
+  }
+
   function renderLotCard(lot) {
     const card = document.querySelector("[data-lot-card]");
     if (!card) return;
@@ -166,6 +180,7 @@
   }
 
   function initMap() {
+    configureMapCanvas();
     renderLots();
     initMapFilters();
     initCardActions();
