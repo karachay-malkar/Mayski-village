@@ -1,4 +1,4 @@
-{
+window.MAYSKI_MASTERPLAN_PLOTS = {
   "1": {
     "id": "plot-1",
     "number": 1,
@@ -399,4 +399,4 @@
     "status": "available",
     "statusLabel": "Свободен"
   }
-}
+};
