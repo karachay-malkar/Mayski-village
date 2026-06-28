@@ -1,13 +1,28 @@
 (function () {
   let selectedLot = null;
 
+  function formatLotSummary(lot) {
+    if (!lot) return "";
+
+    const title = lot.title || `Участок №${lot.number || lot.id}`;
+    const area = lot.areaLabel || "площадь уточняется";
+    const houseArea = lot.houseAreaLabel || "площадь дома уточняется";
+
+    return `${title} — ${area} — дом ${houseArea}`;
+  }
+
+  function getLotStatusLabel(lot) {
+    if (!lot) return "";
+    return lot.statusLabel || window.MAYSKI_UI.getLotStatusLabel(lot.status);
+  }
+
   function setSelectedLotInput(lot) {
     selectedLot = lot;
 
     const input = document.querySelector("[data-selected-lot-input]");
     if (!input || !lot) return;
 
-    input.value = `Участок №${lot.number} — ${window.MAYSKI_UI.formatArea(lot.area)} — ${window.MAYSKI_UI.formatPrice(lot.price)}`;
+    input.value = formatLotSummary(lot);
   }
 
   function buildMessage(formData) {
@@ -28,7 +43,8 @@
     if (selectedLot) {
       lines.push("");
       lines.push(`ID участка: ${selectedLot.id}`);
-      lines.push(`Статус: ${window.MAYSKI_UI.getLotStatusLabel(selectedLot.status)}`);
+      lines.push(`Статус: ${getLotStatusLabel(selectedLot)}`);
+      lines.push(`Тип: ${selectedLot.type || "не указан"}`);
     }
 
     return lines.join("\n");

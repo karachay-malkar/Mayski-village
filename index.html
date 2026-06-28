@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="css/map.css" />
     <link rel="stylesheet" href="css/form.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <script defer src="assets/map/masterplan_overlay_cropped.js"></script>
+    <script defer src="assets/data/masterplan_plots_cropped.js"></script>
     <script defer src="js/data.js"></script>
     <script defer src="js/ui.js"></script>
     <script defer src="js/map.js"></script>
@@ -57,7 +59,7 @@
             <a class="btn btn--glass" href="#request">Получить консультацию</a>
           </div>
           <div class="hero__stats" aria-label="Ключевые параметры проекта">
-            <div><strong>30</strong><span>участков на генплане</span></div>
+            <div><strong>40</strong><span>участков на генплане</span></div>
             <div><strong>3</strong><span>формата покупки</span></div>
             <div><strong>24/7</strong><span>онлайн-заявка</span></div>
           </div>
@@ -130,7 +132,7 @@
             <p class="eyebrow">Интерактивный генплан</p>
             <h2 id="map-title">Выберите участок на карте</h2>
           </div>
-          <p>Границы участков взяты из PDF-генплана. Нажмите на участок, чтобы увидеть площадь, статус и отправить запрос.</p>
+          <p>Карта основана на актуальном SVG-контуре мастер-плана. Нажмите на участок, чтобы увидеть площадь, статус и отправить запрос.</p>
         </div>
 
         <div class="container map-layout">
@@ -143,8 +145,8 @@
             </div>
 
             <div class="map-canvas" data-map-canvas>
-              <img data-map-image src="assets/images/masterplan.png" alt="Генплан коттеджного посёлка Майский" />
-              <svg class="lot-overlay" viewBox="0 0 975 1475" preserveAspectRatio="xMidYMid meet" data-lot-overlay aria-label="Кликабельные участки генплана"></svg>
+              <img data-map-image src="assets/images/masterplan_bg_cropped.png" alt="Генплан коттеджного посёлка Майский" />
+              <svg class="lot-overlay" viewBox="0 0 2400 1800" preserveAspectRatio="xMidYMid meet" data-lot-overlay aria-label="Кликабельные участки генплана"></svg>
               <div class="map-tooltip" data-map-tooltip hidden></div>
             </div>
 
@@ -158,7 +160,7 @@
           <aside class="lot-card" data-lot-card aria-live="polite">
             <p class="eyebrow">Выбранный участок</p>
             <h3>Нажмите на участок</h3>
-            <p class="muted">Карточка покажет площадь, стоимость, статус и кнопку заявки.</p>
+            <p class="muted">Карточка покажет площадь, статус и кнопку заявки.</p>
           </aside>
         </div>
       </section>
