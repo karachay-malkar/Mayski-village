@@ -1,39 +1,31 @@
-# Mayski Development Project
+# Mayski Development Project — full upload package v0.3
 
-Первый рабочий вариант одностраничного рекламно-продажного сайта коттеджного посёлка.
+Готовый пакет для ручной загрузки в GitHub.
 
-## Что входит
+## Что внутри
 
-- премиальный первый экран;
-- блок форматов покупки;
-- карточки домов;
-- интерактивный генплан;
-- кликабельные участки;
-- карточка выбранного участка;
-- форма заявки через WhatsApp;
-- мобильная адаптация.
+- Новый интерактивный генплан из `masterplan_cropped_overlay_site_bundle.zip`:
+  - `assets/images/masterplan_bg_cropped.png`
+  - `assets/images/masterplan_bg_cropped.webp`
+  - `assets/map/masterplan_overlay_cropped.svg`
+  - `assets/data/masterplan_plots_cropped.json`
+- JS-fallback файлы для локального открытия без сервера:
+  - `assets/map/masterplan_overlay_cropped.js`
+  - `assets/data/masterplan_plots_cropped.js`
+- Фотографии домов:
+  - `assets/images/hero.png`
+  - `assets/images/house-01.png`
+  - `assets/images/house-02.png`
+  - `assets/images/house-03.png`
+- Полный комплект HTML/CSS/JS сайта.
 
-## Обновление v0.3
+## Как загрузить
 
-Интерактивная карта заменена на новую версию мастер-плана из `masterplan_cropped_overlay_site_bundle`.
+Загрузить содержимое архива в корень репозитория `karachay-malkar/Mayski-village` с заменой существующих файлов.
 
-- `assets/images/masterplan_bg_cropped.png` — фон карты из архива; файл PNG нужно загрузить отдельно в GitHub по этому пути.
-- `assets/map/masterplan_overlay_cropped.b64.001.txt` … `009.txt` — актуальный SVG-контур, разбитый на текстовые base64-части для безопасной загрузки через GitHub API.
-- `assets/data/masterplan_plots_cropped.json` — данные 40 участков.
-- Система координат карты: `viewBox="0 0 2400 1800"`.
-- Участок 40 нормализуется из `data-plot-id="plot-40"` в ключ `40`, поэтому карточка участка открывается корректно.
+## Проверка
 
-## Важно
-
-Геометрия участков больше не хранится в `js/data.js` как старые polygon-строки. Главный источник геометрии — SVG-контур из base64-частей в `assets/map/`.
-
-Цены пока не заданы, поэтому на сайте показывается значение `по запросу` или не выводится отдельной строкой цены. Для публикации нужно добавить реальные цены в JSON/данные участков.
-
-## Как открыть
-
-Открыть `index.html` в браузере.
-
-Для проверки через локальный сервер можно использовать:
+Открыть `index.html` через локальный сервер:
 
 ```bash
 python3 -m http.server 8080
@@ -45,24 +37,4 @@ python3 -m http.server 8080
 http://localhost:8080
 ```
 
-## Структура
-
-```text
-mayski-development-site/
-├── index.html
-├── assets/
-│   ├── data/
-│   ├── images/
-│   ├── icons/
-│   └── map/
-├── css/
-├── js/
-└── README.md
-```
-
-## Следующий шаг
-
-1. Проверить финальные площади и цены по официальной ведомости.
-2. Уточнить статусы участков: свободен, бронь, продан.
-3. Загрузить PNG-фон в `assets/images/masterplan_bg_cropped.png`, если он ещё не загружен.
-4. Подключить backend/CRM для заявок.
+Карта должна показать фон 2400×1800, SVG-контур и 40 кликабельных участков.
