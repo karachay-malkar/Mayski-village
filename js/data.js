@@ -46,18 +46,8 @@
 
   const mapConfig = {
     image: "assets/images/masterplan_bg_cropped.png",
+    overlay: "assets/map/masterplan_overlay_cropped.svg",
     plotsJson: "assets/data/masterplan_plots_cropped.json",
-    overlayBase64Chunks: [
-      "assets/map/masterplan_overlay_cropped.b64.001.txt",
-      "assets/map/masterplan_overlay_cropped.b64.002.txt",
-      "assets/map/masterplan_overlay_cropped.b64.003.txt",
-      "assets/map/masterplan_overlay_cropped.b64.004.txt",
-      "assets/map/masterplan_overlay_cropped.b64.005.txt",
-      "assets/map/masterplan_overlay_cropped.b64.006.txt",
-      "assets/map/masterplan_overlay_cropped.b64.007.txt",
-      "assets/map/masterplan_overlay_cropped.b64.008.txt",
-      "assets/map/masterplan_overlay_cropped.b64.009.txt",
-    ],
     viewBox: { width: 2400, height: 1800 },
     source: "masterplan_cropped_overlay_site_bundle",
   };
