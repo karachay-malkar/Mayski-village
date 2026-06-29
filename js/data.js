@@ -45,7 +45,7 @@
   };
 
   const mapConfig = {
-    image: "assets/images/masterplan_bg_cropped.png",
+    image: "assets/images/masterplan_bg_cropped.png?v=0.3.4",
     overlay: "assets/map/masterplan_overlay_cropped.svg",
     plotsJson: "assets/data/masterplan_plots_cropped.json",
     viewBox: { width: 2400, height: 1800 },
