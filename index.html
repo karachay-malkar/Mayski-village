@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Майский — коттеджный поселок у реки</title>
   <meta name="description" content="Майский — участки у реки, единый архитектурный стиль и интерактивная карта выбора участка." />
+  <link rel="preload" href="assets/images/hero.png" as="image" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -12,10 +13,9 @@
     <a class="brand" href="#top" aria-label="Майский"><span>М</span><b>Майский</b></a>
     <a class="header-cta" href="#map">Карта</a>
   </header>
-
   <main id="top">
     <section class="hero">
-      <img id="heroImage" alt="Дом в поселке Майский" />
+      <img src="assets/images/hero.png" alt="Дом в поселке Майский" />
       <div class="hero-shade"></div>
       <div class="hero-inner">
         <p>Коттеджный поселок у реки</p>
@@ -26,84 +26,35 @@
         </div>
       </div>
     </section>
-
     <section class="section photo-section" aria-label="Фотографии поселка">
-      <div class="section-title compact">
-        <span>Атмосфера</span>
-        <h2>Дом, участок и река рядом</h2>
-      </div>
+      <div class="section-title compact"><span>Атмосфера</span><h2>Дом, участок и река рядом</h2></div>
       <div class="photo-slider" id="photoSlider">
-        <img class="active" id="photo1" alt="Дом у реки" />
-        <img id="photo2" alt="Дом с террасой" />
-        <img id="photo3" alt="Набережная у реки" />
-        <img id="photo4" alt="Дом в вечернем свете" />
-        <img id="photo5" alt="Дом с благоустроенным участком" />
+        <img class="active" src="assets/images/house-01.png" alt="Дом у реки" />
+        <img src="assets/images/house-02.png" alt="Дом с террасой" />
+        <img src="assets/images/river-view.png" alt="Набережная у реки" />
+        <img src="assets/images/house-03.png" alt="Дом в вечернем свете" />
+        <img src="assets/images/hero.png" alt="Дом с благоустроенным участком" />
         <div class="slider-dots" id="photoDots" aria-label="Переключение фотографий"></div>
       </div>
     </section>
-
     <section id="formats" class="section formats-section">
-      <div class="section-title compact">
-        <span>Покупка</span>
-        <h2>Три сценария. Один стиль поселка.</h2>
-      </div>
-      <div class="format-tabs" id="formatTabs" aria-label="Варианты покупки">
-        <button class="active" type="button" data-format="0">1</button>
-        <button type="button" data-format="1">2</button>
-        <button type="button" data-format="2">3</button>
-      </div>
-      <div class="format-window">
-        <div class="format-track" id="formatTrack">
-          <article class="format-card">
-            <small>01</small>
-            <h3>Только участок</h3>
-            <p>Вы выбираете место и строите в удобном темпе.</p>
-          </article>
-          <article class="format-card">
-            <small>02</small>
-            <h3>Дом под ключ</h3>
-            <p>Готовый проект поселка, понятный путь от участка до заселения.</p>
-          </article>
-          <article class="format-card">
-            <small>03</small>
-            <h3>Ваш проект</h3>
-            <p>Индивидуальный дом с сохранением общего архитектурного образа.</p>
-          </article>
-        </div>
-      </div>
+      <div class="section-title compact"><span>Покупка</span><h2>Три сценария. Один стиль поселка.</h2></div>
+      <div class="format-tabs" id="formatTabs" aria-label="Варианты покупки"><button class="active" type="button" data-format="0">1</button><button type="button" data-format="1">2</button><button type="button" data-format="2">3</button></div>
+      <div class="format-window"><div class="format-track" id="formatTrack">
+        <article class="format-card"><small>01</small><h3>Только участок</h3><p>Вы выбираете место и строите в удобном темпе.</p></article>
+        <article class="format-card"><small>02</small><h3>Дом под ключ</h3><p>Готовый проект поселка, понятный путь от участка до заселения.</p></article>
+        <article class="format-card"><small>03</small><h3>Ваш проект</h3><p>Индивидуальный дом с сохранением общего архитектурного образа.</p></article>
+      </div></div>
     </section>
-
     <section id="map" class="section map-section">
-      <div class="section-title compact">
-        <span>Мастер-план</span>
-        <h2>Выберите свой участок</h2>
-      </div>
+      <div class="section-title compact"><span>Мастер-план</span><h2>Выберите свой участок</h2></div>
       <div class="map-card">
-        <div class="map-stage" id="mapStage">
-          <img class="map-bg" id="mapBg" alt="Мастер-план поселка Майский" />
-          <div class="map-overlay" id="mapOverlay" aria-label="Интерактивные участки"></div>
-        </div>
-        <aside class="plot-card" id="plotCard">
-          <span id="plotKicker">Нажмите на участок</span>
-          <h3 id="plotTitle">Выберите участок на карте</h3>
-          <div class="plot-meta">
-            <div><small>Площадь</small><b id="plotArea">—</b></div>
-            <div><small>Статус</small><b id="plotStatus">—</b></div>
-          </div>
-          <a class="button primary full" href="#contact">Обсудить участок</a>
-        </aside>
+        <div class="map-stage" id="mapStage"><img class="map-bg" src="assets/images/masterplan.png" alt="Мастер-план поселка Майский" /><div class="map-overlay" id="mapOverlay" aria-label="Интерактивные участки"></div></div>
+        <aside class="plot-card" id="plotCard"><span id="plotKicker">Нажмите на участок</span><h3 id="plotTitle">Выберите участок на карте</h3><div class="plot-meta"><div><small>Площадь</small><b id="plotArea">—</b></div><div><small>Статус</small><b id="plotStatus">—</b></div></div><a class="button primary full" href="#contact">Обсудить участок</a></aside>
       </div>
     </section>
-
-    <section id="contact" class="contact-section">
-      <div>
-        <span>Майский</span>
-        <h2>Подберем участок под ваш сценарий жизни</h2>
-        <a class="button primary" href="mailto:info@example.com?subject=Интересует участок в поселке Майский">Оставить заявку</a>
-      </div>
-    </section>
+    <section id="contact" class="contact-section"><div><span>Майский</span><h2>Подберем участок под ваш сценарий жизни</h2><a class="button primary" href="mailto:info@example.com?subject=Интересует участок в поселке Майский">Оставить заявку</a></div></section>
   </main>
-
   <script src="assets/js/app.js" defer></script>
 </body>
 </html>
