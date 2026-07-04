@@ -4,41 +4,57 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Майский — коттеджный поселок у реки</title>
-  <meta name="description" content="Коттеджный поселок у реки: участки, единый архитектурный стиль, интерактивная карта выбора участка." />
+  <meta name="description" content="Майский — участки у реки, единый архитектурный стиль и интерактивная карта выбора участка." />
+  <link rel="preload" href="assets/images/hero.png" as="image" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <header class="site-header" aria-label="Навигация">
-    <a class="brand" href="#top" aria-label="Майский — на главную"><span class="brand-mark">М</span><span>Майский</span></a>
-    <nav class="nav-links" aria-label="Разделы сайта"><a href="#gallery">Фото</a><a href="#formats">Форматы</a><a href="#map">Карта</a><a href="#contacts">Контакты</a></nav>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Майский"><span>М</span><b>Майский</b></a>
+    <a class="header-cta" href="#map">Карта</a>
   </header>
   <main id="top">
-    <section class="hero section-dark">
-      <div class="hero-media" aria-hidden="true"><img id="heroImage" alt="" /></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content container">
-        <p class="eyebrow">Коттеджный поселок у реки</p>
-        <h1>Участки для загородной жизни в едином архитектурном стиле</h1>
-        <p class="hero-text">Современная среда с домами светлой архитектуры, благоустроенными участками, зеленью и прогулочной зоной рядом с водой.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#map">Выбрать участок</a><a class="button button-ghost" href="#gallery">Посмотреть атмосферу</a></div>
+    <section class="hero">
+      <img src="assets/images/hero.png" alt="Дом в поселке Майский" />
+      <div class="hero-shade"></div>
+      <div class="hero-inner">
+        <p>Коттеджный поселок у реки</p>
+        <h1>Жить у воды. В своем доме. В тишине.</h1>
+        <div class="hero-actions">
+          <a class="button primary" href="#map">Выбрать участок</a>
+          <a class="button glass" href="#formats">Варианты покупки</a>
+        </div>
       </div>
     </section>
-    <section id="gallery" class="section section-gallery">
-      <div class="container section-head"><p class="eyebrow">Визуальный стиль</p><h2>Фотографии до карты: сначала атмосфера, затем выбор участка</h2><p>Белые фасады, темная фальцевая кровля, теплый вечерний свет, озеленение и аккуратная загородная среда. Это не каталог разных домов, а ориентир по общему облику поселка.</p></div>
-      <div class="photo-grid container-wide" aria-label="Галерея поселка">
-        <figure class="photo-card photo-card-large"><img id="galleryImage1" alt="Современный одноэтажный дом с террасой и вечерней подсветкой" /><figcaption>Единая архитектура: светлый фасад, темная кровля, мягкая подсветка</figcaption></figure>
-        <figure class="photo-card"><img id="galleryImage2" alt="Дом в современном стиле с благоустроенным участком" /><figcaption>Дом и участок воспринимаются как единая среда</figcaption></figure>
-        <figure class="photo-card"><img id="galleryImage3" alt="Одноэтажный дом с террасой и садом" /><figcaption>Озеленение, дорожки и вечерняя атмосфера</figcaption></figure>
-        <figure class="photo-card photo-card-wide"><img id="riverHouseImage" alt="Дом рядом с дорогой, прогулочной зоной и рекой" /><figcaption>Река и прогулочная зона рядом с жилой средой</figcaption></figure>
-        <figure class="photo-card photo-card-wide"><img id="riverPromenadeImage" alt="Набережная с прогулочной дорожкой, зеленью и рекой" /><figcaption>Набережная для прогулок, зелени и спокойного отдыха у воды</figcaption></figure>
+    <section class="section photo-section" aria-label="Фотографии поселка">
+      <div class="section-title compact"><span>Атмосфера</span><h2>Дом, участок и река рядом</h2></div>
+      <div class="photo-slider" id="photoSlider">
+        <img class="active" src="assets/images/house-01.png" alt="Дом у реки" />
+        <img src="assets/images/house-02.png" alt="Дом с террасой" />
+        <img src="assets/images/river-view.png" alt="Набережная у реки" />
+        <img src="assets/images/house-03.png" alt="Дом в вечернем свете" />
+        <img src="assets/images/hero.png" alt="Дом с благоустроенным участком" />
+        <div class="slider-dots" id="photoDots" aria-label="Переключение фотографий"></div>
       </div>
     </section>
-    <section id="formats" class="section section-formats"><div class="container section-head centered"><p class="eyebrow">Форматы покупки</p><h2>Выберите удобный сценарий</h2><p>Можно приобрести только участок, построить дом под ключ по готовому проекту поселка или реализовать дом под ключ по вашему индивидуальному проекту с сохранением общего архитектурного стиля.</p></div><div class="format-grid container"><article class="format-card"><span class="format-number">01</span><h3>Только участок</h3><p>Для тех, кто хочет самостоятельно определить проект, сроки и последовательность строительства.</p></article><article class="format-card"><span class="format-number">02</span><h3>Под ключ по готовому проекту</h3><p>Готовое решение в архитектурном стиле поселка, без лишнего выбора и перегруза деталями.</p></article><article class="format-card"><span class="format-number">03</span><h3>Под ключ по вашему проекту</h3><p>Индивидуальный дом с адаптацией под правила, посадку на участок и общий облик поселка.</p></article></div></section>
-    <section id="map" class="section section-map"><div class="container section-head centered"><p class="eyebrow">Интерактивный мастер-план</p><h2>Выберите участок на карте</h2><p>Нажмите на участок, чтобы увидеть номер, площадь и текущий статус. Карта собрана из файлов архива проекта: фон, SVG-контур и JSON с участками.</p></div><div class="map-shell container-wide"><div class="map-toolbar" aria-label="Настройки карты"><div><strong>40 участков</strong><span id="currentPlot">Наведите или нажмите на участок</span></div><div class="map-toggles"><label><input type="checkbox" id="toggleOutlines" checked /> контуры</label><label><input type="checkbox" id="toggleLabels" checked /> номера</label></div></div><div class="map-layout"><div class="map-stage show-outlines show-labels" id="mapStage"><img class="map-bg" id="mapBackground" alt="Мастер-план коттеджного поселка" /><div class="map-overlay" id="mapOverlay" aria-label="Кликабельные участки"></div></div><aside class="plot-panel" id="plotPanel" aria-live="polite"><p class="eyebrow">Выбранный участок</p><h3 id="plotTitle">Участок не выбран</h3><dl><div><dt>Площадь</dt><dd id="plotArea">—</dd></div><div><dt>Статус</dt><dd id="plotStatus">—</dd></div><div><dt>Формат</dt><dd>Участок или строительство в едином стиле поселка</dd></div></dl><a class="button button-primary button-full" href="#contacts" id="plotCta">Обсудить выбранный участок</a><p class="panel-note">Сейчас в карточке нет лишних параметров домов и отдельных планировок — только данные по участку.</p></aside></div></div></section>
-    <section class="section section-river"><div class="container river-card"><div><p class="eyebrow">Окружение</p><h2>Река, прогулки и зелень рядом с домом</h2><p>Поселок строится вокруг спокойного загородного ритма: вода рядом, прогулочная зона, деревья, аккуратное благоустройство и приватность собственного участка.</p></div><img id="riverPromenadeImage2" alt="Прогулочная набережная у реки" /></div></section>
-    <section id="contacts" class="section section-contact section-dark"><div class="container contact-card"><p class="eyebrow">Контакты</p><h2>Подберем участок и подходящий формат покупки</h2><p>Оставьте контакт или напишите, какой участок вам интересен. На следующем этапе можно подключить форму, мессенджер или CRM.</p><div class="contact-actions"><a class="button button-primary" href="mailto:info@example.com?subject=Интересует участок в поселке Майский">Написать по участку</a><a class="button button-ghost" href="#map">Вернуться к карте</a></div></div></section>
+    <section id="formats" class="section formats-section">
+      <div class="section-title compact"><span>Покупка</span><h2>Три сценария. Один стиль поселка.</h2></div>
+      <div class="format-tabs" id="formatTabs" aria-label="Варианты покупки"><button class="active" type="button" data-format="0">1</button><button type="button" data-format="1">2</button><button type="button" data-format="2">3</button></div>
+      <div class="format-window"><div class="format-track" id="formatTrack">
+        <article class="format-card"><small>01</small><h3>Только участок</h3><p>Вы выбираете место и строите в удобном темпе.</p></article>
+        <article class="format-card"><small>02</small><h3>Дом под ключ</h3><p>Готовый проект поселка, понятный путь от участка до заселения.</p></article>
+        <article class="format-card"><small>03</small><h3>Ваш проект</h3><p>Индивидуальный дом с сохранением общего архитектурного образа.</p></article>
+      </div></div>
+    </section>
+    <section id="map" class="section map-section">
+      <div class="section-title compact"><span>Мастер-план</span><h2>Выберите свой участок</h2></div>
+      <div class="map-card">
+        <div class="map-stage" id="mapStage"><img class="map-bg" src="assets/images/masterplan.png" alt="Мастер-план поселка Майский" /><div class="map-overlay" id="mapOverlay" aria-label="Интерактивные участки"></div></div>
+        <aside class="plot-card" id="plotCard"><span id="plotKicker">Нажмите на участок</span><h3 id="plotTitle">Выберите участок на карте</h3><div class="plot-meta"><div><small>Площадь</small><b id="plotArea">—</b></div><div><small>Статус</small><b id="plotStatus">—</b></div></div><a class="button primary full" href="#contact">Обсудить участок</a></aside>
+      </div>
+    </section>
+    <section id="contact" class="contact-section"><div><span>Майский</span><h2>Подберем участок под ваш сценарий жизни</h2><a class="button primary" href="mailto:info@example.com?subject=Интересует участок в поселке Майский">Оставить заявку</a></div></section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><span>Майский</span><span>Коттеджный поселок у реки</span></div></footer>
   <script src="assets/js/app.js" defer></script>
 </body>
 </html>
