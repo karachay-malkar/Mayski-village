@@ -9,7 +9,7 @@
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
   </script>
-  <link rel="preload" href="assets/images/hero.png" as="image" />
+  <link rel="preload" href="assets/images/hero.png?v=20260810-3" as="image" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/refinements.css" />
 </head>
@@ -24,7 +24,7 @@
 
   <main id="top">
     <section class="hero">
-      <img src="assets/images/hero.png" alt="Коттеджный поселок Майский" />
+      <img src="assets/images/hero.png?v=20260810-3" alt="Коттеджный поселок Майский" fetchpriority="high" decoding="async" />
       <div class="hero-shade"></div>
       <div class="hero-inner">
         <p>Коттеджный поселок в Майском · КБР</p>
@@ -73,12 +73,12 @@
     <section class="section photo-section" aria-label="Фотографии поселка">
       <div class="section-title compact"><span>Жизнь у Черека</span><h2>Свой дом рядом с рекой</h2></div>
       <div class="photo-slider" id="photoSlider">
-        <img class="active" src="assets/images/house-01.png" alt="Дом в поселке Майский" />
-        <img src="assets/images/house-02.png" alt="Дом с террасой" />
-        <img src="assets/images/river-view.png" alt="Вид на реку рядом с поселком" />
-        <img src="assets/images/house-03.png" alt="Дом в вечернем свете" />
-        <img src="assets/images/hero.png" alt="Дом с благоустроенным участком" />
-        <img src="assets/images/hero-02.png" alt="Коттеджный поселок Майский" />
+        <img class="active" src="assets/images/house-01.png?v=20260810-3" alt="Дом в поселке Майский" decoding="async" />
+        <img src="assets/images/house-02.png?v=20260810-3" alt="Дом с террасой" decoding="async" />
+        <img src="assets/images/river-view.png?v=20260810-3" alt="Вид на реку рядом с поселком" decoding="async" />
+        <img src="assets/images/house-03.png?v=20260810-3" alt="Дом в вечернем свете" decoding="async" />
+        <img src="assets/images/hero.png?v=20260810-3" alt="Дом с благоустроенным участком" decoding="async" />
+        <img src="assets/images/hero-02.png?v=20260810-3" alt="Коттеджный поселок Майский" decoding="async" />
         <div class="slider-dots" id="photoDots" aria-label="Переключение фотографий"></div>
       </div>
     </section>
