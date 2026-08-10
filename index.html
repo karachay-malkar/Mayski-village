@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Майский — дома на берегу реки Черек от 4,8 млн ₽</title>
   <meta name="description" content="Коттеджный поселок в Майском, КБР. Одноэтажные дома 80–125 м² на берегу реки Черек с участками 6–7 соток. Стоимость от 4,8 млн ₽. Ипотека, материнский капитал, рассрочка." />
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  </script>
   <link rel="preload" href="assets/images/hero.png" as="image" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
@@ -65,28 +69,33 @@
       </div>
     </section>
 
-    <section id="purchase" class="section sales-section">
-      <div class="section-title compact"><span>Покупка</span><h2>Два варианта покупки</h2></div>
+    <section id="purchase" class="section purchase-section">
+      <div class="section-title compact"><span>Покупка</span><h2>Варианты покупки</h2></div>
 
-      <div class="price-intro">
-        <div>
+      <div class="purchase-options">
+        <article class="purchase-option">
           <small>01</small>
-          <strong>Только участок</strong>
-        </div>
-        <div>
+          <div>
+            <h3>Только участок</h3>
+            <p>Участок 6–7 соток без обязательного строительства дома.</p>
+          </div>
+        </article>
+        <article class="purchase-option">
           <small>02</small>
-          <strong>Дом с участком</strong>
-        </div>
-      </div>
-      <p class="section-note">Можно приобрести отдельно участок 6–7 соток без строительства дома или выбрать одноэтажный дом 80–125 м² вместе с участком.</p>
-
-      <div class="sales-grid purchase-grid">
-        <article class="sales-card"><small>Ипотека</small><p>При наличии одобрения банка заемщику возможна покупка в ипотеку.</p></article>
-        <article class="sales-card"><small>Материнский капитал</small><p>Возможна покупка с использованием материнского капитала при соблюдении требований программы и банка.</p></article>
-        <article class="sales-card"><small>Рассрочка</small><p>Рассматриваем индивидуальные варианты рассрочки. Условия обсуждаются отдельно.</p></article>
+          <div>
+            <h3>Дом с участком</h3>
+            <p>Одноэтажный дом 80–125 м² вместе с участком 6–7 соток.</p>
+          </div>
+        </article>
       </div>
 
-      <div class="contract-note"><b>Для варианта «Дом с участком» сделка сопровождается двумя договорами:</b><span>1. Договор купли-продажи земли</span><span>2. Договор подряда на строительство дома</span></div>
+      <div class="purchase-payments" aria-label="Способы оплаты">
+        <div class="purchase-payment"><b>Ипотека</b><span>При наличии одобрения банка.</span></div>
+        <div class="purchase-payment"><b>Материнский капитал</b><span>При соблюдении требований программы и банка.</span></div>
+        <div class="purchase-payment"><b>Рассрочка</b><span>Индивидуальные условия обсуждаются отдельно.</span></div>
+      </div>
+
+      <p class="purchase-contract"><b>Дом с участком:</b> договор купли-продажи земли + договор подряда на строительство дома.</p>
     </section>
 
     <section id="map" class="section map-section">
