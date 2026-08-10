@@ -1,21 +1,21 @@
 [
   {
-    "source": "hero.png",
+    "source": "hero-01.png",
     "width": 1536,
     "height": 1024,
     "before": 3424641,
     "outputs": [
       {
-        "file": "assets/images/hero.webp",
-        "bytes": 375118
+        "file": "assets/images/hero-01.webp",
+        "bytes": 412824
       },
       {
-        "file": "assets/images/hero-1280.webp",
-        "bytes": 265808
+        "file": "assets/images/hero-01-1280.webp",
+        "bytes": 292264
       },
       {
-        "file": "assets/images/hero-768.webp",
-        "bytes": 115036
+        "file": "assets/images/hero-01-768.webp",
+        "bytes": 126442
       }
     ]
   },
@@ -27,15 +27,55 @@
     "outputs": [
       {
         "file": "assets/images/hero-02.webp",
-        "bytes": 307534
+        "bytes": 336986
       },
       {
         "file": "assets/images/hero-02-1280.webp",
-        "bytes": 219066
+        "bytes": 242910
       },
       {
         "file": "assets/images/hero-02-768.webp",
-        "bytes": 91046
+        "bytes": 99718
+      }
+    ]
+  },
+  {
+    "source": "hero-03.jpg",
+    "width": 1285,
+    "height": 786,
+    "before": 178393,
+    "outputs": [
+      {
+        "file": "assets/images/hero-03.webp",
+        "bytes": 157376
+      },
+      {
+        "file": "assets/images/hero-03-1280.webp",
+        "bytes": 155754
+      },
+      {
+        "file": "assets/images/hero-03-768.webp",
+        "bytes": 73324
+      }
+    ]
+  },
+  {
+    "source": "hero-04.png",
+    "width": 1536,
+    "height": 1024,
+    "before": 2555148,
+    "outputs": [
+      {
+        "file": "assets/images/hero-04.webp",
+        "bytes": 231146
+      },
+      {
+        "file": "assets/images/hero-04-1280.webp",
+        "bytes": 171222
+      },
+      {
+        "file": "assets/images/hero-04-768.webp",
+        "bytes": 76554
       }
     ]
   },
@@ -43,19 +83,19 @@
     "source": "house-01.png",
     "width": 1672,
     "height": 941,
-    "before": 2474034,
+    "before": 2234333,
     "outputs": [
       {
         "file": "assets/images/house-01.webp",
-        "bytes": 252072
+        "bytes": 210036
       },
       {
         "file": "assets/images/house-01-1280.webp",
-        "bytes": 165280
+        "bytes": 146442
       },
       {
         "file": "assets/images/house-01-768.webp",
-        "bytes": 69130
+        "bytes": 66286
       }
     ]
   },
@@ -67,15 +107,15 @@
     "outputs": [
       {
         "file": "assets/images/house-02.webp",
-        "bytes": 194390
+        "bytes": 218420
       },
       {
         "file": "assets/images/house-02-1280.webp",
-        "bytes": 134148
+        "bytes": 146360
       },
       {
         "file": "assets/images/house-02-768.webp",
-        "bytes": 59070
+        "bytes": 64408
       }
     ]
   },
@@ -83,19 +123,59 @@
     "source": "house-03.png",
     "width": 1672,
     "height": 941,
-    "before": 2377063,
+    "before": 2474034,
     "outputs": [
       {
         "file": "assets/images/house-03.webp",
-        "bytes": 228636
+        "bytes": 278544
       },
       {
         "file": "assets/images/house-03-1280.webp",
-        "bytes": 156226
+        "bytes": 179082
       },
       {
         "file": "assets/images/house-03-768.webp",
-        "bytes": 69238
+        "bytes": 75548
+      }
+    ]
+  },
+  {
+    "source": "house-04.png",
+    "width": 1672,
+    "height": 941,
+    "before": 2377063,
+    "outputs": [
+      {
+        "file": "assets/images/house-04.webp",
+        "bytes": 250256
+      },
+      {
+        "file": "assets/images/house-04-1280.webp",
+        "bytes": 170348
+      },
+      {
+        "file": "assets/images/house-04-768.webp",
+        "bytes": 76392
+      }
+    ]
+  },
+  {
+    "source": "house-05.png",
+    "width": 1672,
+    "height": 941,
+    "before": 2354055,
+    "outputs": [
+      {
+        "file": "assets/images/house-05.webp",
+        "bytes": 256442
+      },
+      {
+        "file": "assets/images/house-05-1280.webp",
+        "bytes": 173736
+      },
+      {
+        "file": "assets/images/house-05-768.webp",
+        "bytes": 76626
       }
     ]
   },
@@ -107,35 +187,15 @@
     "outputs": [
       {
         "file": "assets/images/river-view.webp",
-        "bytes": 237234
+        "bytes": 255150
       },
       {
         "file": "assets/images/river-view-1280.webp",
-        "bytes": 200180
+        "bytes": 221540
       },
       {
         "file": "assets/images/river-view-768.webp",
-        "bytes": 87036
-      }
-    ]
-  },
-  {
-    "source": "masterplan.png",
-    "width": 1200,
-    "height": 900,
-    "before": 2051702,
-    "outputs": [
-      {
-        "file": "assets/images/masterplan.webp",
-        "bytes": 388670
-      },
-      {
-        "file": "assets/images/masterplan-1280.webp",
-        "bytes": 388670
-      },
-      {
-        "file": "assets/images/masterplan-768.webp",
-        "bytes": 179640
+        "bytes": 94236
       }
     ]
   }
