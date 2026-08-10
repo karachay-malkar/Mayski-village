@@ -1,0 +1,99 @@
+name: Optimize site images
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/images/**/*.png'
+      - '.github/workflows/optimize-images.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Sharp
+        run: npm install --no-save sharp@0.33.5
+
+      - name: Convert PNG photos to responsive WebP
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const sharp = require('sharp');
+
+          const dir = 'assets/images';
+          const files = [
+            'hero.png',
+            'hero-02.png',
+            'house-01.png',
+            'house-02.png',
+            'house-03.png',
+            'river-view.png',
+            'masterplan.png'
+          ];
+
+          const widths = [2200, 1280, 768];
+          const report = [];
+
+          async function optimize(file) {
+            const input = path.join(dir, file);
+            if (!fs.existsSync(input)) return;
+
+            const base = path.basename(file, '.png');
+            const meta = await sharp(input).metadata();
+            const quality = base === 'masterplan' ? 90 : 84;
+            const before = fs.statSync(input).size;
+            const outputs = [];
+
+            for (const width of widths) {
+              const suffix = width === 2200 ? '' : `-${width}`;
+              const output = path.join(dir, `${base}${suffix}.webp`);
+              await sharp(input)
+                .resize({ width, withoutEnlargement: true })
+                .webp({ quality, effort: 6, smartSubsample: true })
+                .toFile(output);
+              outputs.push({ file: output, bytes: fs.statSync(output).size });
+            }
+
+            report.push({
+              source: file,
+              width: meta.width,
+              height: meta.height,
+              before,
+              outputs
+            });
+          }
+
+          (async () => {
+            for (const file of files) await optimize(file);
+            console.log(JSON.stringify(report, null, 2));
+            fs.writeFileSync('image-optimization-report.json', JSON.stringify(report, null, 2) + '\n');
+          })().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Commit optimized files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/images/*.webp image-optimization-report.json
+          if git diff --cached --quiet; then
+            echo "No optimized image changes"
+            exit 0
+          fi
+          git commit -m "Optimize site images to responsive WebP"
+          git push
