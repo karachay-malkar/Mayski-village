@@ -26,6 +26,12 @@
   <link rel="stylesheet" href="assets/css/refinements.css?v=20260810-4" />
   <link rel="stylesheet" href="assets/css/location.css?v=20260810-1" />
   <link rel="stylesheet" href="assets/css/marketing.css?v=20260820-1" />
+  <style>
+    .hero-shade{background:linear-gradient(90deg,rgba(14,10,7,.72) 0%,rgba(14,10,7,.50) 36%,rgba(14,10,7,.16) 66%,rgba(14,10,7,0) 86%),linear-gradient(0deg,rgba(14,10,7,.44) 0%,rgba(14,10,7,.08) 55%,rgba(14,10,7,0) 78%)}
+    .hero h1{max-width:860px;text-shadow:0 3px 22px rgba(0,0,0,.58)}
+    .hero-price,.hero-lead,.hero-inner>p{text-shadow:0 2px 16px rgba(0,0,0,.52)}
+    @media(max-width:720px){.hero-shade{background:linear-gradient(90deg,rgba(14,10,7,.64) 0%,rgba(14,10,7,.32) 76%,rgba(14,10,7,.08) 100%),linear-gradient(0deg,rgba(14,10,7,.74) 0%,rgba(14,10,7,.25) 58%,rgba(14,10,7,0) 82%)}}
+  </style>
 </head>
 <body>
   <noscript><div><img src="https://mc.yandex.ru/watch/111487320" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -41,7 +47,7 @@
 
   <main id="top">
     <section class="hero">
-      <img src="assets/images/hero-01.webp?v=20260810-6" srcset="assets/images/hero-01-768.webp?v=20260810-6 768w, assets/images/hero-01-1280.webp?v=20260810-6 1280w, assets/images/hero-01.webp?v=20260810-6 1536w" sizes="100vw" alt="Архитектурная визуализация жилого квартала Майский Берег" fetchpriority="high" decoding="async" />
+      <img src="assets/images/hero-01.webp?v=20260810-6" srcset="assets/images/hero-01-768.webp?v=20260810-6 768w, assets/images/hero-01-1280.webp?v=20260810-6 1280w, assets/images/hero-01.webp?v=20260810-6 1536w" sizes="100vw" alt="Жилой квартал Майский Берег" fetchpriority="high" decoding="async" />
       <div class="hero-shade"></div>
       <div class="hero-inner">
         <p>Жилой квартал на берегу Черека · Майский · КБР</p>
@@ -50,7 +56,7 @@
           <strong class="hero-price">от 4,8 млн&nbsp;₽</strong>
           <span class="promo-badge">Скидки до 15% первым 8 покупателям</span>
         </div>
-        <div class="hero-lead">Одноэтажные дома от 80 м² с участками от 6 соток в жилом квартале «Майский Берег».</div>
+        <div class="hero-lead">Одноэтажные дома от 80 м², участки от 6 соток — на берегу Черека в г. Майском.</div>
         <div class="hero-facts" aria-label="Ключевые условия">
           <span>ИЖС</span><span>от 6 соток</span><span>Коммуникации</span><span>г. Майский</span>
         </div>
@@ -59,19 +65,18 @@
           <a class="button glass" href="https://wa.me/79280824841" data-wa="Здравствуйте! Хочу записаться на просмотр жилого квартала «Майский Берег»." target="_blank" rel="noopener">Записаться на просмотр</a>
         </div>
       </div>
-      <span class="visual-note visual-note--hero">Архитектурная визуализация</span>
     </section>
 
     <section id="price" class="section price-section">
       <div class="section-title compact">
         <span>Что вы получаете</span>
-        <h2>Дом, участок и базовая инфраструктура</h2>
+        <h2>Всё необходимое в базовой комплектации</h2>
       </div>
       <article class="price-offer-card price-offer-card--expanded">
         <div class="price-offer-copy">
           <small>Дом 80 м² · участок 6 соток</small>
           <strong>от 4,8 млн&nbsp;₽</strong>
-          <p>Готовая базовая комплектация без необходимости отдельно покупать землю.</p>
+          <p>Земля и основные инженерные решения уже включены в предложение.</p>
         </div>
         <div class="price-inclusions-inline">
           <b>В стоимость входят:</b>
@@ -88,8 +93,8 @@
 
     <section id="comparison" class="section comparison-section">
       <div class="section-title">
-        <span>Сопоставимый бюджет</span>
-        <h2>Что даёт собственный дом вместо квартиры</h2>
+        <span>Дом или квартира</span>
+        <h2>Больше пространства за сопоставимый бюджет</h2>
       </div>
       <div class="compare-grid">
         <article class="compare-card compare-card--muted">
@@ -115,7 +120,7 @@
           </ul>
         </article>
       </div>
-      <p class="comparison-lead">За сопоставимый бюджет — собственный дом и земля.</p>
+      <p class="comparison-lead">Вместо квартиры — собственный дом и земля.</p>
     </section>
 
     <section id="homes" class="section homes-section">
@@ -126,8 +131,7 @@
       <div class="home-grid">
         <article class="home-card">
           <div class="home-card-media">
-            <img src="assets/images/house-01-768.webp?v=20260810-6" alt="Архитектурная визуализация дома 80 м²" loading="lazy" decoding="async" />
-            <span>Архитектурная визуализация</span>
+            <img src="assets/images/house-03-768.webp?v=20260810-6" alt="Дом 80 м²" loading="lazy" decoding="async" />
           </div>
           <div class="home-card-body">
             <small>Компактный вариант</small>
@@ -139,8 +143,7 @@
         </article>
         <article class="home-card">
           <div class="home-card-media">
-            <img src="assets/images/house-02-768.webp?v=20260810-6" alt="Архитектурная визуализация дома около 100 м²" loading="lazy" decoding="async" />
-            <span>Архитектурная визуализация</span>
+            <img src="assets/images/house-02-768.webp?v=20260810-6" alt="Дом около 100 м²" loading="lazy" decoding="async" />
           </div>
           <div class="home-card-body">
             <small>Семейный вариант</small>
@@ -152,8 +155,7 @@
         </article>
         <article class="home-card">
           <div class="home-card-media">
-            <img src="assets/images/house-03-768.webp?v=20260810-6" alt="Архитектурная визуализация дома около 120 м²" loading="lazy" decoding="async" />
-            <span>Архитектурная визуализация</span>
+            <img src="assets/images/house-01-768.webp?v=20260810-6" alt="Дом около 120 м²" loading="lazy" decoding="async" />
           </div>
           <div class="home-card-body">
             <small>Просторный вариант</small>
@@ -164,7 +166,7 @@
           </div>
         </article>
       </div>
-      <p class="section-note">Площадь и планировка дома уточняются при подборе конкретного участка.</p>
+      <p class="section-note">Площадь и планировка уточняются при подборе конкретного участка.</p>
     </section>
 
     <section id="map" class="section map-section">
@@ -172,7 +174,7 @@
         <span>Мастер-план</span>
         <h2>Выберите свой участок</h2>
       </div>
-      <p class="map-intro">На мастер-плане можно посмотреть расположение участков и уточнить их текущий статус. Участок можно приобрести отдельно или вместе с домом.</p>
+      <p class="map-intro">На мастер-плане видно расположение и текущий статус участков. Можно приобрести землю отдельно или выбрать вариант со строительством.</p>
       <div class="map-card">
         <div class="map-stage" id="mapStage">
           <img class="map-bg" src="assets/images/masterplan.webp?v=20260810-5" srcset="assets/images/masterplan-768.webp?v=20260810-5 768w, assets/images/masterplan.webp?v=20260810-5 1200w" sizes="(max-width:919px) 100vw,820px" alt="Мастер-план жилого квартала Майский Берег" loading="lazy" decoding="async" />
@@ -193,31 +195,29 @@
     <section id="benefits" class="section benefits-section">
       <div class="section-title">
         <span>Почему Майский Берег</span>
-        <h2>Собственный дом рядом с городом и природой</h2>
+        <h2>Рядом с городом, ближе к природе</h2>
       </div>
       <div class="benefit-grid">
-        <article><small>01</small><h3>На берегу Черека</h3><p>Природное окружение рядом с домом.</p></article>
+        <article><small>01</small><h3>На берегу Черека</h3><p>Природное окружение в нескольких шагах.</p></article>
         <article><small>02</small><h3>Вне плотной застройки</h3><p>Спокойное окружение без многоэтажных кварталов вокруг.</p></article>
         <article><small>03</small><h3>Своя земля</h3><p>Участки от 6 соток для двора, сада и зоны отдыха.</p></article>
-        <article><small>04</small><h3>Новый квартал</h3><p>Новые дома и формируемая жилая среда вместо старого жилого фонда.</p></article>
-        <article><small>05</small><h3>Майский рядом</h3><p>Городская инфраструктура остаётся доступной.</p></article>
+        <article><small>04</small><h3>Новый квартал</h3><p>Формируемая жилая среда вместо старого жилого фонда.</p></article>
+        <article><small>05</small><h3>Город рядом</h3><p>Инфраструктура Майского остаётся доступной.</p></article>
       </div>
     </section>
 
-    <section id="visuals" class="section photo-section visual-section" aria-label="Архитектурные визуализации жилого квартала Майский Берег">
+    <section id="visuals" class="section photo-section visual-section" aria-label="Виды жилого квартала Майский Берег">
       <div class="section-title compact">
         <span>Будущий облик</span>
-        <h2>Как будет выглядеть Майский Берег</h2>
+        <h2>Как будет выглядеть квартал</h2>
       </div>
-      <p class="visual-disclaimer">Изображения ниже — архитектурные визуализации будущего квартала и домов.</p>
       <div class="photo-slider" id="photoSlider">
-        <img class="active" src="assets/images/house-01.webp?v=20260810-6" srcset="assets/images/house-01-768.webp?v=20260810-6 768w, assets/images/house-01-1280.webp?v=20260810-6 1280w, assets/images/house-01.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Архитектурная визуализация дома в Майском Береге" loading="lazy" decoding="async" />
-        <img src="assets/images/house-02.webp?v=20260810-6" srcset="assets/images/house-02-768.webp?v=20260810-6 768w, assets/images/house-02-1280.webp?v=20260810-6 1280w, assets/images/house-02.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Архитектурная визуализация дома в Майском Береге" loading="lazy" decoding="async" />
-        <img src="assets/images/house-03.webp?v=20260810-6" srcset="assets/images/house-03-768.webp?v=20260810-6 768w, assets/images/house-03-1280.webp?v=20260810-6 1280w, assets/images/house-03.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Архитектурная визуализация дома в Майском Береге" loading="lazy" decoding="async" />
-        <img src="assets/images/house-04.webp?v=20260810-6" srcset="assets/images/house-04-768.webp?v=20260810-6 768w, assets/images/house-04-1280.webp?v=20260810-6 1280w, assets/images/house-04.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Архитектурная визуализация дома в Майском Береге" loading="lazy" decoding="async" />
-        <img src="assets/images/house-05.webp?v=20260810-6" srcset="assets/images/house-05-768.webp?v=20260810-6 768w, assets/images/house-05-1280.webp?v=20260810-6 1280w, assets/images/house-05.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Архитектурная визуализация дома в Майском Береге" loading="lazy" decoding="async" />
-        <div class="visual-note visual-note--slider">Архитектурная визуализация</div>
-        <div class="slider-dots" id="photoDots" aria-label="Переключение визуализаций"></div>
+        <img class="active" src="assets/images/house-01.webp?v=20260810-6" srcset="assets/images/house-01-768.webp?v=20260810-6 768w, assets/images/house-01-1280.webp?v=20260810-6 1280w, assets/images/house-01.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Дом в Майском Береге" loading="lazy" decoding="async" />
+        <img src="assets/images/house-02.webp?v=20260810-6" srcset="assets/images/house-02-768.webp?v=20260810-6 768w, assets/images/house-02-1280.webp?v=20260810-6 1280w, assets/images/house-02.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Дом в Майском Береге" loading="lazy" decoding="async" />
+        <img src="assets/images/house-03.webp?v=20260810-6" srcset="assets/images/house-03-768.webp?v=20260810-6 768w, assets/images/house-03-1280.webp?v=20260810-6 1280w, assets/images/house-03.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Дом в Майском Береге" loading="lazy" decoding="async" />
+        <img src="assets/images/house-04.webp?v=20260810-6" srcset="assets/images/house-04-768.webp?v=20260810-6 768w, assets/images/house-04-1280.webp?v=20260810-6 1280w, assets/images/house-04.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Дом в Майском Береге" loading="lazy" decoding="async" />
+        <img src="assets/images/house-05.webp?v=20260810-6" srcset="assets/images/house-05-768.webp?v=20260810-6 768w, assets/images/house-05-1280.webp?v=20260810-6 1280w, assets/images/house-05.webp?v=20260810-6 1672w" sizes="(max-width:720px) 100vw,1180px" alt="Дом в Майском Береге" loading="lazy" decoding="async" />
+        <div class="slider-dots" id="photoDots" aria-label="Переключение изображений"></div>
       </div>
     </section>
 
@@ -235,7 +235,7 @@
           <li><b>Два договора</b><span>Отдельно оформляются покупка земли и строительство дома.</span></li>
         </ul>
         <div class="documents-action">
-          <p>Перед принятием решения можно заранее получить документы и ознакомиться с ними.</p>
+          <p>Перед покупкой можно получить документы и спокойно с ними ознакомиться.</p>
           <a class="button primary" href="https://wa.me/79280824841" data-wa="Здравствуйте! Пришлите, пожалуйста, документы по жилому кварталу «Майский Берег»: по земле, ИЖС и оформлению сделки." target="_blank" rel="noopener">Получить документы в WhatsApp</a>
         </div>
       </div>
@@ -261,7 +261,7 @@
       </div>
       <div class="payment-layout">
         <div class="payment-copy">
-          <p class="payment-lead">Рассрочка рассчитана в первую очередь на тех, кто располагает полной суммой, но предпочитает не передавать всю стоимость строительства сразу.</p>
+          <p class="payment-lead">Этот вариант подходит в первую очередь тем, кто располагает полной суммой, но предпочитает не передавать всю стоимость строительства сразу.</p>
           <p>Земельный участок и первоначальный взнос оплачиваются при заключении договоров. Оставшуюся стоимость строительства можно вносить равными платежами в течение 12 месяцев — так оплата распределяется по ходу работ.</p>
           <p class="payment-note">Это пример поэтапной оплаты, а не кредитный продукт. Итоговый график фиксируется в договоре.</p>
         </div>
@@ -280,7 +280,7 @@
     <section id="location" class="section location-section">
       <div class="section-title compact">
         <span>Местоположение</span>
-        <h2>Майский, улица Энгельса</h2>
+        <h2>На берегу Черека, в Майском</h2>
       </div>
       <div class="location-copy">
         <p>Кабардино-Балкарская Республика<strong>г. Майский, ул. Энгельса</strong></p>
@@ -316,7 +316,7 @@
         <h2>Коротко о главном</h2>
       </div>
       <div class="faq-list">
-        <details><summary>Что входит в стоимость дома от 4,8 млн ₽?</summary><p>В базовый вариант входят участок 6 соток, дом 80 м² с предчистовой отделкой, септик и коммуникации на границе участка.</p></details>
+        <details><summary>Что входит в 4,8 млн ₽?</summary><p>В базовый вариант входят участок 6 соток, дом 80 м² с предчистовой отделкой, септик и коммуникации на границе участка.</p></details>
         <details><summary>Можно ли купить только участок?</summary><p>Да. Участки можно приобретать отдельно. Актуальную стоимость и свободные варианты лучше уточнить по мастер-плану и в WhatsApp.</p></details>
         <details><summary>Как оформляется сделка?</summary><p>Земля оформляется отдельным договором купли-продажи, строительство дома — отдельным договором.</p></details>
         <details><summary>Можно ли оплачивать строительство постепенно?</summary><p>Да. Предусмотрена поэтапная оплата до 12 месяцев. График и суммы фиксируются в договоре.</p></details>
@@ -328,8 +328,8 @@
     <section id="contact" class="contact-section">
       <div>
         <span>Майский Берег · река Черек</span>
-        <h2>Выберите дом и участок в «Майском Береге»</h2>
-        <p>Покажем свободные участки, варианты домов и рассчитаем итоговую стоимость.</p>
+        <h2>Подберите свой дом и участок</h2>
+        <p>Покажем свободные варианты и рассчитаем итоговую стоимость.</p>
         <div class="contact-actions">
           <a class="button primary" href="#map">Выбрать участок</a>
           <a class="button glass" href="https://wa.me/79280824841" data-wa="Здравствуйте! Хочу записаться на просмотр жилого квартала «Майский Берег»." target="_blank" rel="noopener">Записаться на просмотр</a>
