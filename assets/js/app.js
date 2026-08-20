@@ -1,18 +1,267 @@
-const qs=(s,root=document)=>root.querySelector(s);const qsa=(s,root=document)=>[...root.querySelectorAll(s)];
+const qs=(s,root=document)=>root.querySelector(s);
+const qsa=(s,root=document)=>[...root.querySelectorAll(s)];
 const WHATSAPP_NUMBER='79280824841';
-const LOCATION_URL='https://yandex.ru/maps?whatshere%5Bpoint%5D=44.033397%2C43.632762&whatshere%5Bzoom%5D=16.06338&ll=44.03368656058228%2C43.63304314104509&z=16.06338&si=pzpk5n24njh86e93dtrxgtgrpw';
 const METRIKA_ID=111487320;
-function metrikaGoal(goal,params={}){if(typeof window.ym==='function')window.ym(METRIKA_ID,'reachGoal',goal,params)}
-function initAnalyticsEvents(){document.addEventListener('click',e=>{const link=e.target.closest('a');if(!link)return;const href=link.getAttribute('href')||'';const label=(link.textContent||'').trim().replace(/\s+/g,' ').slice(0,100);if(href.includes('wa.me/'))metrikaGoal('whatsapp_click',{label});else if(href.startsWith('tel:'))metrikaGoal('phone_click',{label});else if(href.includes('yandex.ru/maps'))metrikaGoal('map_click',{label});else if(href==='#map')metrikaGoal('map_open',{label});if(link.closest('#photoSlider'))metrikaGoal('gallery_click',{label})});const observeOnce=(selector,goal)=>{const el=qs(selector);if(!el||!('IntersectionObserver'in window))return;const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){metrikaGoal(goal);observer.disconnect()}},{threshold:.35});observer.observe(el)};observeOnce('#price','price_view');observeOnce('#map','map_view');observeOnce('#location','location_view');observeOnce('#contact','contact_view')}
-function initInternalNavigation(){qsa('a[href^="#"]').forEach(link=>{link.addEventListener('click',e=>{const selector=link.getAttribute('href');const target=selector&&qs(selector);if(!target)return;e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',location.pathname+location.search)})})}
-function makeDots(root,count,onClick){if(!root)return[];root.innerHTML='';return Array.from({length:count},(_,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`Показать ${i+1}`);b.addEventListener('click',()=>{metrikaGoal('gallery_next',{slide:i+1});onClick(i)});root.appendChild(b);return b})}
-function initPhotoSlider(){const slider=qs('#photoSlider');if(!slider)return;const slides=qsa('img',slider);if(!slides.length)return;let index=0,timer=null;slides.forEach((slide,i)=>{slide.classList.toggle('active',i===0);slide.classList.remove('previous')});const dots=makeDots(qs('#photoDots'),slides.length,i=>set(i,true));function paintDots(){dots.forEach((dot,i)=>dot.classList.toggle('active',i===index))}function start(){if(timer)clearInterval(timer);timer=setInterval(()=>set((index+1)%slides.length,false),6000)}function set(next,restart){next=(Number(next)+slides.length)%slides.length;if(next===index){if(restart)start();return}const old=index;slides[old].classList.remove('active');slides[old].classList.add('previous');slides[next].classList.remove('previous');slides[next].classList.add('active');index=next;paintDots();setTimeout(()=>slides[old]?.classList.remove('previous'),850);if(restart)start()}paintDots();start()}
-const plotData={};function idFrom(el){return String(el.dataset.plotId||el.id||'').replace('plot-','')}
-function isSold(id){return String(plotData[id]?.statusLabel||'').toLowerCase()==='продан'}
-function whatsappUrl(message){return`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`}
-function fillPanel(id){const p=plotData[id]||{};const sold=isSold(id);qs('#plotKicker').textContent=id?`Участок ${id}`:'Нажмите на участок';qs('#plotTitle').textContent=p.title||`Участок ${id}`;qs('#plotArea').textContent=p.areaLabel||'—';const status=qs('#plotStatus');if(status){status.textContent=p.statusLabel||'Свободен';status.classList.toggle('is-sold',sold)}const link=qs('#plotWhatsApp');if(link&&id){link.textContent=sold?'Подобрать похожий участок':'Обсудить в WhatsApp';link.href=whatsappUrl(sold?`Здравствуйте! Увидел, что участок №${id} в жилом квартале «Майский Берег» уже продан. Помогите подобрать похожий свободный участок.`:`Здравствуйте! Интересует участок №${id} в жилом квартале «Майский Берег» на берегу реки Черек. Хотел бы узнать подробности.`)}}
-function addLabels(svg){const g=document.createElementNS('http://www.w3.org/2000/svg','g');svg.querySelectorAll('.plot-hit').forEach(el=>{const id=idFrom(el);try{const b=el.getBBox();const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('class',`plot-label${isSold(id)?' is-sold':''}`);t.setAttribute('x',b.x+b.width/2);t.setAttribute('y',b.y+b.height/2);t.textContent=id;g.appendChild(t)}catch(e){}});svg.appendChild(g)}
-function positionSoldBadges(svg,host){const hostRect=host.getBoundingClientRect();qsa('.plot-sold-badge',host).forEach(x=>x.remove());svg.querySelectorAll('.plot-hit.is-sold').forEach(el=>{const rect=el.getBoundingClientRect();if(!rect.width||!rect.height)return;const badge=document.createElement('span');badge.className='plot-sold-badge';badge.textContent='Продан';badge.dataset.plotId=idFrom(el);badge.style.left=`${rect.left-hostRect.left+rect.width/2}px`;badge.style.top=`${rect.top-hostRect.top+Math.max(8,Math.min(rect.height*.22,18))}px`;host.appendChild(badge)})}
-async function initMap(){try{const [svgRes,jsonRes]=await Promise.all([fetch('assets/map/masterplan_overlay_cropped.svg'),fetch('assets/map/masterplan_plots_cropped.json')]);if(!svgRes.ok||!jsonRes.ok)throw new Error('map files');Object.assign(plotData,await jsonRes.json());const host=qs('#mapOverlay');if(!host)return;host.innerHTML=await svgRes.text();const svg=qs('svg',host);if(!svg)throw new Error('map svg');svg.setAttribute('preserveAspectRatio','none');const plots=qsa('.plot-hit',svg);plots.forEach(el=>{const id=idFrom(el);const sold=isSold(id);if(sold)el.classList.add('is-sold');el.addEventListener('click',()=>{plots.forEach(x=>x.classList.remove('is-selected'));el.classList.add('is-selected');fillPanel(id);metrikaGoal('plot_select',{plot_id:id,status:sold?'sold':'available'})});el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click()}});el.setAttribute('tabindex','0');el.setAttribute('role','button');el.setAttribute('aria-label',`Участок ${id}${sold?', продан':''}`)});requestAnimationFrame(()=>{addLabels(svg);positionSoldBadges(svg,host)});let resizeFrame=0;const reposition=()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>positionSoldBadges(svg,host))};window.addEventListener('resize',reposition,{passive:true});if('ResizeObserver'in window)new ResizeObserver(reposition).observe(host)}catch(e){const host=qs('#mapOverlay');if(host)host.innerHTML='<div class="map-error">Карта временно не загрузилась</div>';console.error(e)}}
-function initLocationSection(){const contact=qs('#contact');if(!contact||qs('#location'))return;if(!qs('link[data-location-styles]')){const style=document.createElement('link');style.rel='stylesheet';style.href='assets/css/location.css?v=20260810-1';style.dataset.locationStyles='';document.head.appendChild(style)}const section=document.createElement('section');section.id='location';section.className='section location-section';section.innerHTML=`<div class="section-title compact"><span>Местоположение</span><h2>Мы находимся по адресу</h2></div><div class="location-copy"><p>Кабардино-Балкарская Республика<strong>г. Майский, ул. Энгельса</strong></p><a class="location-link" href="${LOCATION_URL}" target="_blank" rel="noopener">Открыть в Яндекс Картах <span aria-hidden="true">↗</span></a></div><a class="location-photo" href="${LOCATION_URL}" target="_blank" rel="noopener" role="img" aria-label="Схема расположения жилого квартала Майский Берег в г. Майский"><img src="assets/images/location-mayski-top.svg?v=20260810-1" alt="" aria-hidden="true" loading="lazy" decoding="async"/><img src="assets/images/location-mayski-bottom.svg?v=20260810-1" alt="" aria-hidden="true" loading="lazy" decoding="async"/></a>`;contact.before(section)}
-initInternalNavigation();initPhotoSlider();initMap();initLocationSection();initAnalyticsEvents();
+
+function metrikaGoal(goal,params={}){
+  if(typeof window.ym==='function') window.ym(METRIKA_ID,'reachGoal',goal,params);
+}
+
+function whatsappUrl(message){
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function initWhatsAppLinks(){
+  qsa('[data-wa]').forEach(link=>{
+    const message=(link.dataset.wa||'').trim();
+    if(message) link.href=whatsappUrl(message);
+  });
+}
+
+function initAnalyticsEvents(){
+  document.addEventListener('click',e=>{
+    const link=e.target.closest('a');
+    if(!link) return;
+    const href=link.getAttribute('href')||'';
+    const label=(link.textContent||'').trim().replace(/\s+/g,' ').slice(0,100);
+    if(href.includes('wa.me/')) metrikaGoal('whatsapp_click',{label});
+    else if(href.startsWith('tel:')) metrikaGoal('phone_click',{label});
+    else if(href.includes('yandex.ru/maps')) metrikaGoal('map_click',{label});
+    else if(href==='#map') metrikaGoal('map_open',{label});
+    if(link.closest('#photoSlider')) metrikaGoal('gallery_click',{label});
+  });
+
+  const observeOnce=(selector,goal)=>{
+    const el=qs(selector);
+    if(!el||!('IntersectionObserver' in window)) return;
+    const observer=new IntersectionObserver(entries=>{
+      if(entries.some(entry=>entry.isIntersecting)){
+        metrikaGoal(goal);
+        observer.disconnect();
+      }
+    },{threshold:.3});
+    observer.observe(el);
+  };
+
+  [
+    ['#price','price_view'],
+    ['#comparison','comparison_view'],
+    ['#homes','homes_view'],
+    ['#map','map_view'],
+    ['#benefits','benefits_view'],
+    ['#visuals','visuals_view'],
+    ['#documents','documents_view'],
+    ['#payment','payment_view'],
+    ['#location','location_view'],
+    ['#builder','builder_view'],
+    ['#contact','contact_view']
+  ].forEach(([selector,goal])=>observeOnce(selector,goal));
+}
+
+function initInternalNavigation(){
+  qsa('a[href^="#"]').forEach(link=>{
+    link.addEventListener('click',e=>{
+      const selector=link.getAttribute('href');
+      const target=selector&&qs(selector);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+      history.replaceState(null,'',location.pathname+location.search);
+    });
+  });
+}
+
+function makeDots(root,count,onClick){
+  if(!root) return [];
+  root.innerHTML='';
+  return Array.from({length:count},(_,i)=>{
+    const button=document.createElement('button');
+    button.type='button';
+    button.setAttribute('aria-label',`Показать визуализацию ${i+1}`);
+    button.addEventListener('click',()=>{
+      metrikaGoal('gallery_next',{slide:i+1});
+      onClick(i);
+    });
+    root.appendChild(button);
+    return button;
+  });
+}
+
+function initPhotoSlider(){
+  const slider=qs('#photoSlider');
+  if(!slider) return;
+  const slides=qsa('img',slider);
+  if(!slides.length) return;
+  let index=0;
+  let timer=null;
+
+  slides.forEach((slide,i)=>{
+    slide.classList.toggle('active',i===0);
+    slide.classList.remove('previous');
+  });
+
+  const dots=makeDots(qs('#photoDots'),slides.length,i=>set(i,true));
+
+  function paintDots(){
+    dots.forEach((dot,i)=>dot.classList.toggle('active',i===index));
+  }
+
+  function start(){
+    if(timer) clearInterval(timer);
+    timer=setInterval(()=>set((index+1)%slides.length,false),6000);
+  }
+
+  function set(next,restart){
+    next=(Number(next)+slides.length)%slides.length;
+    if(next===index){
+      if(restart) start();
+      return;
+    }
+    const old=index;
+    slides[old].classList.remove('active');
+    slides[old].classList.add('previous');
+    slides[next].classList.remove('previous');
+    slides[next].classList.add('active');
+    index=next;
+    paintDots();
+    setTimeout(()=>slides[old]?.classList.remove('previous'),850);
+    if(restart) start();
+  }
+
+  paintDots();
+  start();
+}
+
+const plotData={};
+
+function idFrom(el){
+  return String(el.dataset.plotId||el.id||'').replace('plot-','');
+}
+
+function isSold(id){
+  return String(plotData[id]?.statusLabel||'').toLowerCase()==='продан';
+}
+
+function fillPanel(id){
+  const plot=plotData[id]||{};
+  const sold=isSold(id);
+  qs('#plotKicker').textContent=id?`Участок ${id}`:'Нажмите на участок';
+  qs('#plotTitle').textContent=plot.title||`Участок ${id}`;
+  qs('#plotArea').textContent=plot.areaLabel||'—';
+
+  const status=qs('#plotStatus');
+  if(status){
+    status.textContent=plot.statusLabel||'Свободен';
+    status.classList.toggle('is-sold',sold);
+  }
+
+  const link=qs('#plotWhatsApp');
+  if(link&&id){
+    link.textContent=sold?'Подобрать похожий участок':'Получить расчёт';
+    link.href=whatsappUrl(
+      sold
+        ? `Здравствуйте! Увидел, что участок №${id} в жилом квартале «Майский Берег» уже продан. Помогите подобрать похожий свободный участок.`
+        : `Здравствуйте! Интересует участок №${id} в жилом квартале «Майский Берег». Хотел бы получить расчёт и узнать подробности.`
+    );
+  }
+}
+
+function addLabels(svg){
+  const group=document.createElementNS('http://www.w3.org/2000/svg','g');
+  svg.querySelectorAll('.plot-hit').forEach(el=>{
+    const id=idFrom(el);
+    try{
+      const box=el.getBBox();
+      const label=document.createElementNS('http://www.w3.org/2000/svg','text');
+      label.setAttribute('class',`plot-label${isSold(id)?' is-sold':''}`);
+      label.setAttribute('x',box.x+box.width/2);
+      label.setAttribute('y',box.y+box.height/2);
+      label.textContent=id;
+      group.appendChild(label);
+    }catch(e){}
+  });
+  svg.appendChild(group);
+}
+
+function positionSoldBadges(svg,host){
+  const hostRect=host.getBoundingClientRect();
+  qsa('.plot-sold-badge',host).forEach(x=>x.remove());
+  svg.querySelectorAll('.plot-hit.is-sold').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(!rect.width||!rect.height) return;
+    const badge=document.createElement('span');
+    badge.className='plot-sold-badge';
+    badge.textContent='Продан';
+    badge.dataset.plotId=idFrom(el);
+    badge.style.left=`${rect.left-hostRect.left+rect.width/2}px`;
+    badge.style.top=`${rect.top-hostRect.top+Math.max(8,Math.min(rect.height*.22,18))}px`;
+    host.appendChild(badge);
+  });
+}
+
+async function initMap(){
+  try{
+    const [svgRes,jsonRes]=await Promise.all([
+      fetch('assets/map/masterplan_overlay_cropped.svg'),
+      fetch('assets/map/masterplan_plots_cropped.json')
+    ]);
+    if(!svgRes.ok||!jsonRes.ok) throw new Error('map files');
+
+    Object.assign(plotData,await jsonRes.json());
+    const host=qs('#mapOverlay');
+    if(!host) return;
+    host.innerHTML=await svgRes.text();
+
+    const svg=qs('svg',host);
+    if(!svg) throw new Error('map svg');
+    svg.setAttribute('preserveAspectRatio','none');
+
+    const plots=qsa('.plot-hit',svg);
+    plots.forEach(el=>{
+      const id=idFrom(el);
+      const sold=isSold(id);
+      if(sold) el.classList.add('is-sold');
+
+      el.addEventListener('click',()=>{
+        plots.forEach(x=>x.classList.remove('is-selected'));
+        el.classList.add('is-selected');
+        fillPanel(id);
+        metrikaGoal('plot_select',{plot_id:id,status:sold?'sold':'available'});
+      });
+
+      el.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){
+          e.preventDefault();
+          el.click();
+        }
+      });
+
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      el.setAttribute('aria-label',`Участок ${id}${sold?', продан':''}`);
+    });
+
+    requestAnimationFrame(()=>{
+      addLabels(svg);
+      positionSoldBadges(svg,host);
+    });
+
+    let resizeFrame=0;
+    const reposition=()=>{
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame=requestAnimationFrame(()=>positionSoldBadges(svg,host));
+    };
+    window.addEventListener('resize',reposition,{passive:true});
+    if('ResizeObserver' in window) new ResizeObserver(reposition).observe(host);
+  }catch(e){
+    const host=qs('#mapOverlay');
+    if(host) host.innerHTML='<div class="map-error">Карта временно не загрузилась</div>';
+    console.error(e);
+  }
+}
+
+initWhatsAppLinks();
+initInternalNavigation();
+initPhotoSlider();
+initMap();
+initAnalyticsEvents();
