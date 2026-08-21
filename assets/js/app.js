@@ -294,9 +294,10 @@ function initEcoComparison(){
     style.textContent=`
       :root{--bg:#f1f3ef;--milk:#fbfcf9;--ink:#1f2922;--muted:#68716b;--accent:#3f5f4a;--dark:#294035;--line:rgba(41,64,53,.14);--shadow:0 24px 70px rgba(41,64,53,.12)}
       body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
-      .site-header{background:rgba(35,52,43,.84)}
+      .site-header{background:linear-gradient(135deg,rgba(41,64,53,.97),rgba(63,95,74,.94));border:1px solid rgba(207,226,211,.12);box-shadow:0 10px 30px rgba(29,49,38,.22)}
       .brand span{color:#294035}
       .hero{background:#294035}
+      .hero-shade{background:linear-gradient(90deg,rgba(41,64,53,.80) 0%,rgba(41,64,53,.58) 36%,rgba(41,64,53,.20) 66%,rgba(41,64,53,0) 86%),linear-gradient(0deg,rgba(29,49,38,.52) 0%,rgba(41,64,53,.12) 55%,rgba(41,64,53,0) 78%)}
       .hero-inner>p,.contact-section>div>span{color:#c6dbc9}
       .section-title span{color:#3f5f4a}
       .button.primary{background:#3f5f4a;box-shadow:0 14px 32px rgba(63,95,74,.24)}
@@ -318,6 +319,7 @@ function initEcoComparison(){
       .compare-mark--no{color:#737873!important}
       .compare-mark--yes{color:#d9eadc!important}
       .compare-mark svg{display:block;width:20px;height:20px}
+      @media(max-width:720px){.hero-shade{background:linear-gradient(90deg,rgba(41,64,53,.70) 0%,rgba(41,64,53,.38) 76%,rgba(41,64,53,.10) 100%),linear-gradient(0deg,rgba(29,49,38,.78) 0%,rgba(41,64,53,.30) 58%,rgba(41,64,53,0) 82%)}}
     `;
     document.head.appendChild(style);
   }
