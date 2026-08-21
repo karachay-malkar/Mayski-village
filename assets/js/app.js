@@ -260,6 +260,70 @@ async function initMap(){
   }
 }
 
+function initEcoComparison(){
+  const comparison=qs('#comparison');
+  if(!comparison) return;
+
+  const oldPhilosophy=qs('#space');
+  if(oldPhilosophy) oldPhilosophy.remove();
+
+  const title=qs('.section-title',comparison);
+  if(title){
+    title.innerHTML='<span>Новый взгляд на комфорт</span><h2>Пространство — новая роскошь</h2>';
+  }
+
+  const copy=qs('.trend-copy',comparison);
+  if(copy){
+    copy.textContent='Города становятся плотнее и шумнее, а личное пространство — ценнее. Поэтому всё больше людей выбирают свой дом, сад и террасу вдали от плотной застройки, сохраняя доступ к городской инфраструктуре.';
+  }
+
+  const cityLabel=qs('.lifestyle-column--city > small',comparison);
+  const homeLabel=qs('.lifestyle-column--home > small',comparison);
+  if(cityLabel) cityLabel.textContent='Городская квартира';
+  if(homeLabel) homeLabel.textContent='Майский Берег';
+
+  // Lucide icons (ISC License): https://lucide.dev/
+  const iconX='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+  const iconCheck='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  qsa('.compare-mark--no',comparison).forEach(mark=>mark.innerHTML=iconX);
+  qsa('.compare-mark--yes',comparison).forEach(mark=>mark.innerHTML=iconCheck);
+
+  if(!qs('#eco-theme-20260821')){
+    const style=document.createElement('style');
+    style.id='eco-theme-20260821';
+    style.textContent=`
+      :root{--bg:#f1f3ef;--milk:#fbfcf9;--ink:#1f2922;--muted:#68716b;--accent:#3f5f4a;--dark:#294035;--line:rgba(41,64,53,.14);--shadow:0 24px 70px rgba(41,64,53,.12)}
+      body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
+      .site-header{background:rgba(35,52,43,.84)}
+      .brand span{color:#294035}
+      .hero{background:#294035}
+      .hero-inner>p,.contact-section>div>span{color:#c6dbc9}
+      .section-title span{color:#3f5f4a}
+      .button.primary{background:#3f5f4a;box-shadow:0 14px 32px rgba(63,95,74,.24)}
+      .price-intro{background:#294035}
+      .sales-card small,.plot-card>span{color:#3f5f4a}
+      .plot-meta div{background:#eef2ed}
+      .contact-section{background:linear-gradient(135deg,#294035,#3f5f4a)}
+      .comparison-section--trend{padding-top:54px}
+      .comparison-section .section-title{max-width:1000px}
+      .comparison-section .section-title h2{max-width:930px}
+      .comparison-section .trend-copy{max-width:900px;color:#68716b}
+      .lifestyle-column--city{background:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,255,255,.06)),#d7d9d7!important;border-color:#c3c7c3!important;color:#3f4240}
+      .lifestyle-column--city>small{color:#686d69!important}
+      .lifestyle-column--city .lifestyle-row{border-bottom-color:rgba(63,66,64,.13)!important}
+      .lifestyle-column--home{background:linear-gradient(145deg,#294035,#3f5f4a)!important;color:#fff!important;border-color:rgba(63,95,74,.14)!important;box-shadow:0 22px 54px rgba(41,64,53,.18)}
+      .lifestyle-column--home>small{color:#c8ddcb!important}
+      .lifestyle-column--home .lifestyle-row{border-bottom-color:rgba(255,255,255,.14)!important}
+      .compare-mark{background:transparent!important;border:1px solid currentColor;font-size:0}
+      .compare-mark--no{color:#737873!important}
+      .compare-mark--yes{color:#d9eadc!important}
+      .compare-mark svg{display:block;width:20px;height:20px}
+    `;
+    document.head.appendChild(style);
+  }
+}
+
+initEcoComparison();
 initWhatsAppLinks();
 initInternalNavigation();
 initPhotoSlider();
