@@ -116,3 +116,24 @@ body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
 .plan-arrow svg,.plan-dialog-actions button svg{width:19px;height:19px;display:block}
 .plan-zoom svg{width:15px;height:15px;display:block}
 .location-link svg{width:16px;height:16px;display:inline-block;vertical-align:-3px;margin-left:3px}
+
+/* 2026-11-02: Полная галерея и понятная схема двух договоров */
+.plan-zoom{display:none!important}
+.plan-image-link{cursor:zoom-in}
+.deal-flow{display:grid;grid-template-columns:minmax(0,1fr) 46px minmax(0,1fr);align-items:center;gap:12px}
+.contract-card{min-height:202px;padding:26px 28px;border-radius:22px;border:1px solid var(--line);background:var(--milk);display:flex;flex-direction:column;gap:13px}
+.contract-card--build{background:#eaf0e9}
+.contract-index{color:var(--accent);font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
+.contract-card h3{margin:0;font-size:clamp(23px,2.7vw,29px);line-height:1.13;letter-spacing:-.035em}
+.contract-card p{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+.contract-card p strong{color:var(--ink);font-weight:750}
+.contract-arrow{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:var(--dark);color:#fff}
+.contract-arrow svg{width:22px;height:22px}
+.slider-dots{max-width:100%;flex-wrap:wrap;justify-content:center;gap:8px}
+@media(max-width:720px){
+ .deal-flow{grid-template-columns:minmax(0,1fr);gap:8px}
+ .contract-card{min-height:auto;padding:20px 21px;gap:9px}
+ .contract-arrow{justify-self:center;width:35px;height:35px;transform:rotate(90deg)}
+ .contract-arrow svg{width:19px;height:19px}
+ .slider-dots{gap:6px}
+}

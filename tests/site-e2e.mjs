@@ -14,7 +14,10 @@ try {
   assert.equal(response?.status(),200,'home page should load');
   assert.equal(await desktop.locator('main section').count(),7,'must have seven main sections');
   assert.equal(await desktop.locator('#homes .plan-card').count(),3,'three 80 m² plan variants');
-  assert.equal(await desktop.locator('#photoSlider > img').count(),5,'preserve every original gallery image');
+  assert.equal(await desktop.locator('#photoSlider > img').count(),11,'hero, views, masterplan and homes retained');
+  assert.equal(await desktop.locator('.contract-card').count(),2,'exactly two contracts');
+  assert.equal(await desktop.locator('.plan-zoom').count(),0,'no enlarge button on plan cards');
+  assert.match(await desktop.locator('#price').innerText(),/предчистовой отделкой/i);
   await desktop.locator('#homes').scrollIntoViewIfNeeded();
   await desktop.waitForFunction(
     () => [...document.querySelectorAll('#homes .plan-card img')].every(img=>img.complete&&img.naturalWidth>0),
@@ -29,10 +32,11 @@ try {
   await desktop.waitForFunction(()=>document.querySelectorAll('#mapOverlay .plot-hit').length>0,null,{timeout:25000});
   await desktop.locator('#mapOverlay .plot-hit:not(.is-sold)').first().click({force:true});
   assert.match(await desktop.locator('#plotTitle').innerText(),/Участок/i,'map selection populates plot panel');
-  assert.equal(await desktop.locator('#photoDots button').count(),5,'gallery still has five selector dots');
+  assert.equal(await desktop.locator('#photoDots button').count(),11,'gallery must have 11 selectors');
   await desktop.locator('#visuals').scrollIntoViewIfNeeded();
   await desktop.locator('#photoDots button').nth(1).click();
   assert.equal(await desktop.locator('#photoSlider img.active').count(),1,'exactly one active photo');
+  await desktop.waitForFunction(()=>document.querySelector('#photoSlider img.active')?.naturalWidth>0,null,{timeout:20000});
   assert.equal(await desktop.locator('a[data-plan-request]').count(),3);
   assert.ok((await desktop.locator('#price').innerText()).includes('100 000 ₽'));
   assert.ok(!(await desktop.locator('body').innerText()).includes('рассрочка'));
@@ -61,7 +65,7 @@ try {
   assert.match(properties.scrollSnap,/mandatory/);
   await mobile.screenshot({path:'test-results/mobile.png',fullPage:true});
   assert.deepEqual(errors,[],'no uncaught JavaScript errors');
-  console.log('PASS: site sections, original gallery, plan cards, enlarged plan, interactive map, desktop and mobile checks');
+  console.log('PASS: 11 gallery images, two contracts, predchistovaya, plans, masterplan, desktop/mobile');
 } finally {
   await browser.close();
 }
