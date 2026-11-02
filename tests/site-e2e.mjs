@@ -46,12 +46,18 @@ try {
   await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.naturalWidth>0);
   await desktop.locator('#planDialogClose').click();
   assert.equal(await desktop.locator('#planDialog').evaluate(el=>el.open),false,'plan modal closes');
+  assert.equal(await desktop.locator('#homes [data-plan-size="100"] img').getAttribute('src'),'assets/images/plans/100-01-v2-thumb.webp','new 100 m² thumbnail must be used');
+  assert.deepEqual(await desktop.locator('#homes [data-plan-size="100"] img').evaluate(el=>[el.naturalWidth,el.naturalHeight]),[960,720],'new 100 m² thumbnail dimensions');
   for(const area of [100,120]){
     await desktop.locator('#homes .plan-card[data-plan-size="'+area+'"] [data-plan-open]').click();
     await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.complete && document.querySelector('#planDialogImage')?.naturalWidth>0);
     assert.match(await desktop.locator('#planDialogTitle').innerText(),new RegExp(String(area)+' м²'));
     const fullHref=await desktop.locator('#planDialogOriginal').getAttribute('href');
-    assert.ok(fullHref.endsWith(String(area)+'-01.webp'),'modal must link full size '+area+' m²');
+    const expected=area===100?'100-01-v2.webp':'120-01.webp';
+    assert.ok(fullHref.endsWith(expected),'modal must link selected full size '+area+' m²');
+    if(area===100){
+      assert.deepEqual(await desktop.locator('#planDialogImage').evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1448,1086],'full-size newly generated 100 m² plan');
+    }
     await desktop.locator('#planDialogClose').click();
   }
   await desktop.locator('#map').scrollIntoViewIfNeeded();
