@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="assets/css/styles.css?v=20260810-4" />
   <link rel="stylesheet" href="assets/css/refinements.css?v=20260810-4" />
   <link rel="stylesheet" href="assets/css/location.css?v=20260810-1" />
-  <link rel="stylesheet" href="assets/css/marketing.css?v=20261102-4" />
+  <link rel="stylesheet" href="assets/css/marketing.css?v=20261102-5" />
   
 </head>
 <body>
@@ -86,9 +86,12 @@
     </section>
 
     <section id="homes" class="section plans-section">
-      <div class="section-heading-row"><div class="section-title compact"><span>Проекты домов</span><h2>Выберите планировку своего дома</h2></div>
-      <div class="plans-navigation"><button class="plan-arrow" type="button" data-plan-direction="-1" aria-label="Предыдущая планировка"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><button class="plan-arrow" type="button" data-plan-direction="1" aria-label="Следующая планировка"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
-      <div class="plan-grid" id="planGrid" role="list" aria-label="Планировки домов">        <article class="plan-card" role="listitem" data-plan-size="80" data-plan-variant="01">
+      <div class="section-title compact"><span>Проекты домов</span><h2>Выберите планировку своего дома</h2></div>
+      <div class="plan-columns" id="planGrid" aria-label="Галерея планировок">
+        <div class="plan-column" data-plan-area="80" data-plan-count="3">
+          <div class="plan-column-heading"><strong class="plan-column-number">80 <span>м²</span></strong><span class="plan-column-count">3 планировки</span></div>
+          <div class="plan-deck" id="planDeck80" tabindex="0" role="region" aria-roledescription="вертикальная галерея" aria-label="Планировки домов 80 м²">
+<article class="plan-card is-current" role="listitem" data-plan-size="80" data-plan-variant="01">
           <a class="plan-image-link" href="assets/images/plans/80-01.webp" data-plan-open="80-01" aria-label="Открыть планировку, вариант 01">
             <img src="assets/images/plans/80-01-thumb.webp" alt="Планировка дома 80 м² — С раздельной кухней и гостиной" loading="lazy" decoding="async">
             
@@ -97,7 +100,7 @@
             <a class="button outline full" data-plan-request="80-01" href="https://wa.me/79280824841" data-wa="Здравствуйте! Интересует планировка 01, 80 м², в «Майском Береге». Хочу получить расчёт строительства." target="_blank" rel="noopener">Рассчитать строительство</a>
           </div>
         </article>
-        <article class="plan-card" role="listitem" data-plan-size="80" data-plan-variant="02">
+<article class="plan-card" role="listitem" data-plan-size="80" data-plan-variant="02">
           <a class="plan-image-link" href="assets/images/plans/80-02.webp" data-plan-open="80-02" aria-label="Открыть планировку, вариант 02">
             <img src="assets/images/plans/80-02-thumb.webp" alt="Планировка дома 80 м² — Компактный семейный" loading="lazy" decoding="async">
             
@@ -106,7 +109,7 @@
             <a class="button outline full" data-plan-request="80-02" href="https://wa.me/79280824841" data-wa="Здравствуйте! Интересует планировка 02, 80 м², в «Майском Береге». Хочу получить расчёт строительства." target="_blank" rel="noopener">Рассчитать строительство</a>
           </div>
         </article>
-        <article class="plan-card" role="listitem" data-plan-size="80" data-plan-variant="03">
+<article class="plan-card" role="listitem" data-plan-size="80" data-plan-variant="03">
           <a class="plan-image-link" href="assets/images/plans/80-03.webp" data-plan-open="80-03" aria-label="Открыть планировку, вариант 03">
             <img src="assets/images/plans/80-03-thumb.webp" alt="Планировка дома 80 м² — С большой террасой" loading="lazy" decoding="async">
             
@@ -115,7 +118,19 @@
             <a class="button outline full" data-plan-request="80-03" href="https://wa.me/79280824841" data-wa="Здравствуйте! Интересует планировка 03, 80 м², в «Майском Береге». Хочу получить расчёт строительства." target="_blank" rel="noopener">Рассчитать строительство</a>
           </div>
         </article>
-        <article class="plan-card" role="listitem" data-plan-variant="04" data-plan-size="100">
+          </div>
+          <div class="plan-deck-footer"><span data-deck-position class="plan-position" aria-live="polite">01 / 03</span>
+            <div class="plan-deck-controls">
+              <button type="button" data-deck-step="-1" aria-label="Предыдущая планировка 80 м²" disabled><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 6-6 6 6"/></svg></button>
+              <button type="button" data-deck-step="1" aria-label="Следующая планировка 80 м²"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 10 6 6 6-6"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="plan-column" data-plan-area="100" data-plan-count="1">
+          <div class="plan-column-heading"><strong class="plan-column-number">100 <span>м²</span></strong><span class="plan-column-count">1 планировка</span></div>
+          <div class="plan-deck" id="planDeck100" tabindex="0" role="region" aria-roledescription="вертикальная галерея" aria-label="Планировки домов 100 м²">
+<article class="plan-card is-current" role="listitem" data-plan-variant="04" data-plan-size="100">
           <a class="plan-image-link" href="assets/images/plans/100-01.webp" data-plan-open="100-01" aria-label="Открыть планировку 100 м²">
             <img src="assets/images/plans/100-01-thumb.webp" alt="Планировка 100 м² — Прямоугольный дом" loading="lazy" decoding="async">
           </a>
@@ -123,8 +138,19 @@
             <a class="button outline full" data-plan-request="100-01" href="https://wa.me/79280824841" data-wa="Здравствуйте! Интересует планировка 100 м² (Прямоугольный дом) в «Майском Береге». Пришлите расчёт строительства." target="_blank" rel="noopener">Рассчитать строительство</a>
           </div>
         </article>
+          </div>
+          <div class="plan-deck-footer"><span data-deck-position class="plan-position" aria-live="polite">01 / 01</span>
+            <div class="plan-deck-controls">
+              <button type="button" data-deck-step="-1" aria-label="Предыдущая планировка 100 м²" disabled><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 6-6 6 6"/></svg></button>
+              <button type="button" data-deck-step="1" aria-label="Следующая планировка 100 м²" disabled><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 10 6 6 6-6"/></svg></button>
+            </div>
+          </div>
+        </div>
 
-        <article class="plan-card" role="listitem" data-plan-variant="05" data-plan-size="120">
+        <div class="plan-column" data-plan-area="120" data-plan-count="1">
+          <div class="plan-column-heading"><strong class="plan-column-number">120 <span>м²</span></strong><span class="plan-column-count">1 планировка</span></div>
+          <div class="plan-deck" id="planDeck120" tabindex="0" role="region" aria-roledescription="вертикальная галерея" aria-label="Планировки домов 120 м²">
+<article class="plan-card is-current" role="listitem" data-plan-variant="05" data-plan-size="120">
           <a class="plan-image-link" href="assets/images/plans/120-01.webp" data-plan-open="120-01" aria-label="Открыть планировку 120 м²">
             <img src="assets/images/plans/120-01-thumb.webp" alt="Планировка 120 м² — Г-образный с террасой" loading="lazy" decoding="async">
           </a>
@@ -132,9 +158,24 @@
             <a class="button outline full" data-plan-request="120-01" href="https://wa.me/79280824841" data-wa="Здравствуйте! Интересует планировка 120 м² (Г-образный с террасой) в «Майском Береге». Пришлите расчёт строительства." target="_blank" rel="noopener">Рассчитать строительство</a>
           </div>
         </article>
+          </div>
+          <div class="plan-deck-footer"><span data-deck-position class="plan-position" aria-live="polite">01 / 01</span>
+            <div class="plan-deck-controls">
+              <button type="button" data-deck-step="-1" aria-label="Предыдущая планировка 120 м²" disabled><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 6-6 6 6"/></svg></button>
+              <button type="button" data-deck-step="1" aria-label="Следующая планировка 120 м²" disabled><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 10 6 6 6-6"/></svg></button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="plans-footer"><p><strong>Есть собственный проект?</strong> Построим дом по вашему проекту.</p><a href="https://wa.me/79280824841" data-wa="Здравствуйте! Есть собственный проект дома. Хочу обсудить строительство в «Майском Береге»." target="_blank" rel="noopener">Обсудить проект</a></div>
-      <p class="plans-note">Иллюстративные варианты. Рабочий проект и комплектация согласовываются до начала строительства.</p>
+      <div class="plans-footer">
+        <div class="plans-footer-copy">
+          <span class="plans-footer-kicker">Индивидуальное строительство</span>
+          <h3>У вас уже есть проект дома?</h3>
+          <p>Построим по вашему проекту — с согласованной сметой и сроками.</p>
+        </div>
+        <a class="button primary" href="https://wa.me/79280824841" data-wa="Здравствуйте! Есть собственный проект дома. Хочу обсудить строительство в «Майском Береге»." target="_blank" rel="noopener">Обсудить свой проект</a>
+      </div>
+      <p class="plans-note">Планировки представлены для ознакомления. Рабочий проект и комплектация согласовываются до строительства.</p>
     </section>
 
     <section id="map" class="section map-section">
@@ -224,6 +265,6 @@
     <div class="plan-dialog-toolbar"><span id="planDialogTitle">Планировка 80 м²</span><div class="plan-dialog-actions"><a id="planDialogOriginal" href="#" target="_blank" rel="noopener">Полный размер</a><button type="button" id="planDialogClose" aria-label="Закрыть планировку"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div>
     <div class="plan-dialog-image"><img id="planDialogImage" alt="Увеличенная планировка дома"></div>
   </dialog>
-  <script src="assets/js/app.js?v=20261102-4" defer></script>
+  <script src="assets/js/app.js?v=20261102-5" defer></script>
 </body>
 </html>

@@ -275,35 +275,62 @@ function initPlanGallery(){
   const original=qs('#planDialogOriginal');
   const title=qs('#planDialogTitle');
   if(!grid||!dialog||!large||!original||!title)return;
-  qsa('[data-plan-direction]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const card=grid.querySelector('.plan-card');
-      if(!card)return;
-      const width=card.getBoundingClientRect().width+12;
-      const direction=Number(btn.dataset.planDirection);
-      const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-      grid.scrollBy({left:direction*width,behavior:reduced?'auto':'smooth'});
-    });
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  qsa('.plan-column',grid).forEach(column=>{
+    const deck=qs('.plan-deck',column);
+    const cards=qsa('.plan-card',deck);
+    const indicator=qs('[data-deck-position]',column);
+    const prev=qs('[data-deck-step="-1"]',column);
+    const next=qs('[data-deck-step="1"]',column);
+    if(!deck||!cards.length)return;
+    const top=index=>cards[index].offsetTop-cards[0].offsetTop;
+    const current=()=>cards.reduce((best,card,i)=>
+      Math.abs(top(i)-deck.scrollTop)<Math.abs(top(best)-deck.scrollTop)?i:best,0);
+    const sync=()=>{
+      const active=current();
+      const middle=deck.scrollTop+deck.clientHeight/2;
+      cards.forEach((card,i)=>{
+        const distance=(top(i)+card.offsetHeight/2-middle)/deck.clientHeight;
+        const delta=Math.max(-1,Math.min(1,distance));
+        card.classList.toggle('is-current',i===active);
+        card.style.transform=reduced.matches?'':'perspective(1100px) rotateX('+(-7*delta).toFixed(2)+'deg) scale('+(1-Math.abs(delta)*.025).toFixed(3)+')';
+        card.style.opacity=reduced.matches?'':String((1-Math.abs(delta)*.2).toFixed(3));
+      });
+      indicator.textContent=String(active+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+      if(prev)prev.disabled=active===0;
+      if(next)next.disabled=active===cards.length-1;
+    };
+    let frame=false;
+    deck.addEventListener('scroll',()=>{
+      if(frame)return;
+      frame=true;
+      requestAnimationFrame(()=>{frame=false;sync();});
+    },{passive:true});
+    qsa('[data-deck-step]',column).forEach(button=>button.addEventListener('click',()=>{
+      const target=Math.max(0,Math.min(cards.length-1,current()+Number(button.dataset.deckStep)));
+      deck.scrollTo({top:top(target),behavior:reduced.matches?'auto':'smooth'});
+    }));
+    reduced.addEventListener?.('change',sync);
+    window.addEventListener('resize',sync,{passive:true});
+    sync();
   });
-  qsa('[data-plan-open]',grid).forEach(a=>{
-    a.addEventListener('click',e=>{
-      if(typeof dialog.showModal!=='function')return;
-      e.preventDefault();
-      const src=a.getAttribute('href');
-      const card=a.closest('.plan-card');
-      const variant=card?.dataset.planVariant||'';
-      const area=Number(card?.dataset.planSize)||80;
-      large.src=src;
-      large.alt='Планировка дома '+area+' м², вариант '+variant;
-      original.href=src;
-      title.textContent='Планировка '+area+' м² · Вариант '+variant;
-      dialog.showModal();
-      metrikaGoal('plan_open',{variant,area});
-    });
-  });
+  qsa('[data-plan-open]',grid).forEach(a=>a.addEventListener('click',e=>{
+    if(typeof dialog.showModal!=='function')return;
+    e.preventDefault();
+    const src=a.getAttribute('href');
+    const card=a.closest('.plan-card');
+    const variant=card?.dataset.planVariant||'';
+    const area=Number(card?.dataset.planSize)||80;
+    large.src=src;
+    large.alt='Планировка дома '+area+' м², вариант '+variant;
+    original.href=src;
+    title.textContent='Планировка '+area+' м² · Вариант '+variant;
+    dialog.showModal();
+    metrikaGoal('plan_open',{variant,area});
+  }));
   qs('#planDialogClose')?.addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
-  qsa('[data-plan-request]').forEach(a=>a.addEventListener('click',()=>{
+  qsa('[data-plan-request]',grid).forEach(a=>a.addEventListener('click',()=>{
     metrikaGoal('plan_request',{variant:a.dataset.planRequest,area:Number(a.closest('.plan-card')?.dataset.planSize)||80});
   }));
 }

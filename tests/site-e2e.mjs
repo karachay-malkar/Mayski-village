@@ -13,7 +13,10 @@ try {
   const response = await desktop.goto(base,{waitUntil:'domcontentloaded'});
   assert.equal(response?.status(),200,'home page should load');
   assert.equal(await desktop.locator('main section').count(),7,'must have seven main sections');
-  assert.equal(await desktop.locator('#homes .plan-card').count(),5,'three 80 m² plan variants');
+  assert.equal(await desktop.locator('#homes .plan-card').count(),5,'five plans');
+  assert.equal(await desktop.locator('#homes .plan-column').count(),3,'three independent columns');
+  assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.dataset.planArea)),['80','100','120']);
+  assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.querySelectorAll('.plan-card').length)),[3,1,1]);
   assert.equal(await desktop.locator('#photoSlider > img').count(),11,'hero, views, masterplan and homes retained');
   assert.equal(await desktop.locator('.contract-card').count(),2,'exactly two contracts');
   assert.equal(await desktop.locator('.plan-zoom').count(),0,'no enlarge button on plan cards');
@@ -23,6 +26,15 @@ try {
     await card.scrollIntoViewIfNeeded();
     await card.locator('img').evaluate(img=>img.decode());
   }
+  for(const plan of await desktop.locator('#homes .plan-image-link img').all()){
+    assert.equal(await plan.evaluate(el=>getComputedStyle(el).objectFit),'contain','no image cropping');
+  }
+  const deck=desktop.locator('#planDeck80');
+  await deck.evaluate(el=>el.scrollTo({top:0,behavior:'instant'}));
+  await desktop.waitForFunction(()=>document.querySelector('[data-plan-area="80"] [data-deck-position]')?.textContent?.trim()==='01 / 03');
+  await desktop.locator('[data-plan-area="80"] [data-deck-step="1"]').click();
+  await desktop.waitForFunction(()=>document.querySelector('[data-plan-area="80"] [data-deck-position]')?.textContent?.trim()==='02 / 03');
+  assert.ok(await deck.evaluate(el=>el.scrollTop)>0,'80 m² cards scroll down');
   await desktop.locator('#homes [data-plan-open]').first().click();
   assert.equal(await desktop.locator('#planDialog').evaluate(el=>el.open),true,'plan modal opens');
   await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.naturalWidth>0);
@@ -65,15 +77,15 @@ try {
   await mobile.waitForFunction(()=>document.querySelector('#map .map-bg')?.naturalWidth>0,null,{timeout:20000});
   await mobile.locator('#visuals').scrollIntoViewIfNeeded();
   await mobile.waitForFunction(()=>document.querySelector('#photoSlider img.active')?.naturalWidth>0,null,{timeout:20000});
-  const properties=await mobile.locator('#planGrid').evaluate(el=>({
-    overflow:el.scrollWidth>el.clientWidth,
-    scrollSnap:getComputedStyle(el).scrollSnapType
-  }));
-  assert.equal(properties.overflow,true,'mobile plan cards must be scrollable');
-  assert.match(properties.scrollSnap,/mandatory/);
+  const columns=await mobile.locator('#planGrid').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
+  assert.equal(columns,1,'mobile shows full-width stacked categories');
+  assert.equal(await mobile.locator('#homes .plan-deck').count(),3);
+  const deckDetails=await mobile.locator('#planDeck80').evaluate(el=>({vertical:el.scrollHeight>el.clientHeight,snap:getComputedStyle(el).scrollSnapType}));
+  assert.equal(deckDetails.vertical,true,'mobile plans scroll vertically');
+  assert.match(deckDetails.snap,/y mandatory/);
   await mobile.screenshot({path:'test-results/mobile.png',fullPage:true});
   assert.deepEqual(errors,[],'no uncaught JavaScript errors');
-  console.log('PASS: 5 plan cards, modal display of 80/100/120 m², gallery, masterplan, mobile/desktop');
+  console.log('PASS: 3 columns, 5 plans, vertical deck, images contain, modal, gallery, map, mobile and desktop');
 } finally {
   await browser.close();
 }
