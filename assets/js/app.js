@@ -272,48 +272,86 @@ function initPlanGallery(){
   const grid=qs('#planGrid');
   const dialog=qs('#planDialog');
   const large=qs('#planDialogImage');
-  const original=qs('#planDialogOriginal');
+  const fullLink=qs('#planDialogOriginal');
+  const estimateLink=qs('#planDialogEstimate');
   const title=qs('#planDialogTitle');
-  if(!grid||!dialog||!large||!original||!title)return;
+  if(!grid||!dialog||!large||!fullLink||!title)return;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+
   qsa('.plan-column',grid).forEach(column=>{
     const deck=qs('.plan-deck',column);
     const cards=qsa('.plan-card',deck);
-    const indicator=qs('[data-deck-position]',column);
-    const prev=qs('[data-deck-step="-1"]',column);
+    const previous=qs('[data-deck-step="-1"]',column);
     const next=qs('[data-deck-step="1"]',column);
     if(!deck||!cards.length)return;
-    const top=index=>cards[index].offsetTop-cards[0].offsetTop;
-    const current=()=>cards.reduce((best,card,i)=>
-      Math.abs(top(i)-deck.scrollTop)<Math.abs(top(best)-deck.scrollTop)?i:best,0);
-    const sync=()=>{
-      const active=current();
-      const middle=deck.scrollTop+deck.clientHeight/2;
-      cards.forEach((card,i)=>{
-        const distance=(top(i)+card.offsetHeight/2-middle)/deck.clientHeight;
-        const delta=Math.max(-1,Math.min(1,distance));
-        card.classList.toggle('is-current',i===active);
-        card.style.transform=reduced.matches?'':'perspective(1100px) rotateX('+(-7*delta).toFixed(2)+'deg) scale('+(1-Math.abs(delta)*.025).toFixed(3)+')';
-        card.style.opacity=reduced.matches?'':String((1-Math.abs(delta)*.2).toFixed(3));
+    let active=0;
+    let changing=false;
+    const render=()=>{
+      cards.forEach((card,index)=>{
+        const current=index===active;
+        card.classList.toggle('is-current',current);
+        card.classList.toggle('is-behind',index===active+1);
+        card.classList.toggle('is-hidden',index!==active&&index!==active+1);
+        card.setAttribute('aria-hidden',String(!current));
+        const link=qs('[data-plan-open]',card);
+        if(link)link.tabIndex=current?0:-1;
       });
-      indicator.textContent=String(active+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
-      if(prev)prev.disabled=active===0;
+      if(previous)previous.disabled=active===0;
       if(next)next.disabled=active===cards.length-1;
     };
-    let frame=false;
-    deck.addEventListener('scroll',()=>{
-      if(frame)return;
-      frame=true;
-      requestAnimationFrame(()=>{frame=false;sync();});
+    const change=async direction=>{
+      const target=active+direction;
+      if(changing||target<0||target>=cards.length)return;
+      changing=true;
+      const outgoing=cards[active];
+      const incoming=cards[target];
+      incoming.classList.remove('is-hidden');
+      incoming.classList.add('is-behind');
+      incoming.style.zIndex='2';
+      outgoing.style.zIndex='3';
+      const length=reduced.matches?0:530;
+      if(length>0){
+        const motion={duration:length,easing:'cubic-bezier(.23,.78,.2,1)',fill:'forwards'};
+        const y=direction>0?-54:54;
+        const out=outgoing.animate([{transform:'translateY(0) scale(1)',opacity:1},{transform:'translateY('+y+'px) scale(.96)',opacity:0}],motion);
+        const behind=incoming.animate([{transform:'translateY(12px) scale(.975)',opacity:.78},{transform:'translateY(0) scale(1)',opacity:1}],motion);
+        try{await Promise.all([out.finished,behind.finished]);}catch{}
+        out.cancel();
+        behind.cancel();
+      }
+      outgoing.style.zIndex='';
+      incoming.style.zIndex='';
+      active=target;
+      render();
+      changing=false;
+    };
+    previous?.addEventListener('click',()=>change(-1));
+    next?.addEventListener('click',()=>change(1));
+    deck.addEventListener('wheel',e=>{
+      if(cards.length<2||Math.abs(e.deltaY)<8)return;
+      const direction=e.deltaY>0?1:-1;
+      if(changing||active+direction<0||active+direction>=cards.length)return;
+      e.preventDefault();
+      change(direction);
+    },{passive:false});
+    let startY=null;
+    deck.addEventListener('touchstart',e=>{startY=e.touches[0]?.clientY??null;},{passive:true});
+    deck.addEventListener('touchend',e=>{
+      if(startY===null)return;
+      const distance=startY-(e.changedTouches[0]?.clientY??startY);
+      startY=null;
+      if(Math.abs(distance)>45)change(distance>0?1:-1);
     },{passive:true});
-    qsa('[data-deck-step]',column).forEach(button=>button.addEventListener('click',()=>{
-      const target=Math.max(0,Math.min(cards.length-1,current()+Number(button.dataset.deckStep)));
-      deck.scrollTo({top:top(target),behavior:reduced.matches?'auto':'smooth'});
-    }));
-    reduced.addEventListener?.('change',sync);
-    window.addEventListener('resize',sync,{passive:true});
-    sync();
+    deck.addEventListener('keydown',e=>{
+      const direction=['ArrowDown','PageDown'].includes(e.key)?1:['ArrowUp','PageUp'].includes(e.key)?-1:0;
+      if(!direction)return;
+      if(active+direction<0||active+direction>=cards.length)return;
+      e.preventDefault();
+      change(direction);
+    });
+    render();
   });
+
   qsa('[data-plan-open]',grid).forEach(a=>a.addEventListener('click',e=>{
     if(typeof dialog.showModal!=='function')return;
     e.preventDefault();
@@ -323,16 +361,20 @@ function initPlanGallery(){
     const area=Number(card?.dataset.planSize)||80;
     large.src=src;
     large.alt='Планировка дома '+area+' м², вариант '+variant;
-    original.href=src;
+    fullLink.href=src;
     title.textContent='Планировка '+area+' м² · Вариант '+variant;
+    if(estimateLink){
+      const message='Здравствуйте! Интересует строительство дома «Майский Берег» по планировке '+area+' м², вариант '+variant+'. Пришлите расчёт и комплектацию.';
+      estimateLink.href='https://wa.me/79280824841?text='+encodeURIComponent(message);
+      estimateLink.dataset.planSize=String(area);
+      estimateLink.dataset.planVariant=variant;
+    }
     dialog.showModal();
     metrikaGoal('plan_open',{variant,area});
   }));
+  estimateLink?.addEventListener('click',()=>metrikaGoal('plan_request',{variant:estimateLink.dataset.planVariant,area:Number(estimateLink.dataset.planSize)||80}));
   qs('#planDialogClose')?.addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
-  qsa('[data-plan-request]',grid).forEach(a=>a.addEventListener('click',()=>{
-    metrikaGoal('plan_request',{variant:a.dataset.planRequest,area:Number(a.closest('.plan-card')?.dataset.planSize)||80});
-  }));
 }
 initWhatsAppLinks();
 initInternalNavigation();
