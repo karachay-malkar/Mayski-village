@@ -290,19 +290,21 @@ function initPlanGallery(){
       if(typeof dialog.showModal!=='function')return;
       e.preventDefault();
       const src=a.getAttribute('href');
-      const variant=a.closest('.plan-card')?.dataset.planVariant||'';
+      const card=a.closest('.plan-card');
+      const variant=card?.dataset.planVariant||'';
+      const area=Number(card?.dataset.planSize)||80;
       large.src=src;
-      large.alt='Планировка дома 80 м², вариант '+variant;
+      large.alt='Планировка дома '+area+' м², вариант '+variant;
       original.href=src;
-      title.textContent='Планировка 80 м² · Вариант '+variant;
+      title.textContent='Планировка '+area+' м² · Вариант '+variant;
       dialog.showModal();
-      metrikaGoal('plan_open',{variant,area:80});
+      metrikaGoal('plan_open',{variant,area});
     });
   });
   qs('#planDialogClose')?.addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
   qsa('[data-plan-request]').forEach(a=>a.addEventListener('click',()=>{
-    metrikaGoal('plan_request',{variant:a.dataset.planRequest,area:80});
+    metrikaGoal('plan_request',{variant:a.dataset.planRequest,area:Number(a.closest('.plan-card')?.dataset.planSize)||80});
   }));
 }
 initWhatsAppLinks();

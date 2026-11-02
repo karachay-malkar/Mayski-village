@@ -137,3 +137,9 @@ body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
  .contract-arrow svg{width:19px;height:19px}
  .slider-dots{gap:6px}
 }
+
+@media(min-width:761px){
+.plan-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+.plan-grid>.plan-card{grid-column:span 2}
+.plan-grid>.plan-card[data-plan-size="100"],.plan-grid>.plan-card[data-plan-size="120"]{grid-column:span 3}
+}
