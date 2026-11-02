@@ -150,3 +150,47 @@
   .payment-row,.payment-total{display:block}
   .payment-row strong,.payment-total strong{display:block;margin-top:4px}
 }
+
+/* Продажа земельных участков / два варианта · 2026-11-02 */
+.hero-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:750px;margin-top:20px}
+.hero-choice{display:flex;flex-direction:column;gap:6px;min-width:0;padding:18px 21px;border:1px solid rgba(255,255,255,.28);border-radius:19px;background:rgba(30,54,40,.54);color:#fff;backdrop-filter:blur(12px);transition:background .2s,transform .2s}
+.hero-choice:hover,.hero-choice:focus-visible{background:rgba(38,79,52,.78);transform:translateY(-2px)}
+.hero-choice span{font-size:12px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;color:#dbefe0}
+.hero-choice strong{font-size:clamp(23px,3vw,37px);line-height:1.1;letter-spacing:-.035em;white-space:nowrap}
+.hero-choice small{font-size:13px;color:#dcebe0}
+.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.offer-card{display:flex;flex-direction:column;min-width:0;gap:16px;padding:clamp(23px,3vw,36px);border-radius:28px;border:1px solid var(--line);background:var(--milk);box-shadow:0 16px 36px rgba(41,64,53,.055)}
+.offer-card--build{background:linear-gradient(145deg,#294035,#3f5f4a);color:#fff;border-color:transparent}
+.offer-card-tag{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.offer-card--build .offer-card-tag{color:#cde0cf}
+.offer-card h3{margin:0;max-width:560px;font-size:clamp(25px,3vw,36px);line-height:1.09;letter-spacing:-.035em}
+.offer-card-price{font-size:clamp(31px,3.8vw,49px);font-weight:900;letter-spacing:-.045em;line-height:1}
+.offer-card-price small{font-size:16px;font-weight:650;letter-spacing:0}
+.offer-card-example{margin:-6px 0 0;font-size:16px;color:var(--muted);font-weight:600}
+.offer-card--build .offer-card-example{color:#d6e2d8}
+.offer-card ul{list-style:none;margin:0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:13px}
+.offer-card li{position:relative;padding-left:21px;color:var(--muted);font-size:15px;line-height:1.5}
+.offer-card li::before{content:"";position:absolute;left:0;top:8px;width:9px;height:9px;border-radius:50%;background:#7ea88b}
+.offer-card--build ul{border-top-color:rgba(255,255,255,.18)}
+.offer-card--build li{color:#e2ece4}
+.offer-card--build li::before{background:#c5dbc9}
+.offer-card-footnote{margin:auto 0 0;padding-top:12px;color:var(--muted);font-size:12px;line-height:1.5}
+.offer-card--build .offer-card-footnote{color:#d6e2d8}
+.offer-card--build .button.primary{background:#fff!important;color:#294035;box-shadow:none}
+.offers-legal-note{max-width:960px;margin:16px 0 0;font-size:13px;line-height:1.55;color:var(--muted)}
+.plot-meta{grid-template-columns:repeat(3,minmax(0,1fr))}
+.plot-meta b{overflow-wrap:anywhere}
+@media(max-width:800px){.offer-grid{grid-template-columns:1fr}.hero-choices{max-width:680px}}
+@media(max-width:720px){
+ .hero{height:auto;min-height:760px}
+ .hero-inner{position:relative!important;inset:auto!important;padding:146px 20px 65px;max-width:none}
+ .hero-choices{grid-template-columns:1fr;gap:9px;margin-top:17px}
+ .hero-choice{padding:13px 16px;gap:3px}
+ .hero-choice strong{font-size:27px}
+ .hero-lead{margin-top:15px}
+ .hero-facts{margin-top:12px}
+ .hero-actions{margin-top:16px}
+ .offer-card{padding:23px}
+ .offer-card h3{font-size:27px}
+ .plot-meta{grid-template-columns:1fr}
+}

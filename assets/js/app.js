@@ -148,6 +148,8 @@ function fillPanel(id){
   qs('#plotKicker').textContent=id?`Участок ${id}`:'Нажмите на участок';
   qs('#plotTitle').textContent=plot.title||`Участок ${id}`;
   qs('#plotArea').textContent=plot.areaLabel||'—';
+  const plotPrice=qs('#plotPrice');
+  if(plotPrice) plotPrice.textContent=(plot.areaLabel||'').includes('600')?'от 600 000 ₽':'Уточнить';
 
   const status=qs('#plotStatus');
   if(status){
@@ -157,11 +159,11 @@ function fillPanel(id){
 
   const link=qs('#plotWhatsApp');
   if(link&&id){
-    link.textContent=sold?'Подобрать похожий участок':'Получить расчёт';
+    link.textContent=sold?'Подобрать похожий участок':'Уточнить цену и документы';
     link.href=whatsappUrl(
       sold
         ? `Здравствуйте! Увидел, что участок №${id} в жилом квартале «Майский Берег» уже продан. Помогите подобрать похожий свободный участок.`
-        : `Здравствуйте! Интересует участок №${id} в жилом квартале «Майский Берег». Хотел бы получить расчёт и узнать подробности.`
+        : `Здравствуйте! Интересует участок №${id} в жилом квартале «Майский Берег». Стоимость земли — 100 000 ₽/сотка. Пришлите точную площадь, цену и документы. Рассматриваю участок отдельно или вместе со строительством.` 
     );
   }
 }
