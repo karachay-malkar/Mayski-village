@@ -17,7 +17,7 @@ try {
   assert.equal(await desktop.locator('.plan-column-count').count(),0,'remove number of plans under titles');
   assert.equal(await desktop.locator('.plan-card-body').count(),0,'remove all text below floor plans');
   assert.equal(await desktop.locator('[data-deck-position]').count(),0,'no visible card counters');
-  assert.equal(await desktop.locator('#homes .plan-stack').count(),3,'compact stacked galleries');
+  assert.equal(await desktop.locator('#homes .plan-stack').count(),2,'two compact stacked galleries');
   assert.equal(await desktop.locator('#homes .plan-column').count(),2,'no unverified 120 m² column');
   assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.dataset.planArea)),['80','100']);
   assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.querySelectorAll('.plan-card').length)),[3,2]);
@@ -49,7 +49,7 @@ try {
   assert.equal(await desktop.locator('#homes [data-plan-size="100"] img').first().getAttribute('src'),'assets/images/plans/100-01-corrected-thumb.webp','corrected first 100 m² thumbnail used');
   assert.deepEqual(await desktop.locator('#homes [data-plan-size="100"] img').first().evaluate(el=>[el.naturalWidth,el.naturalHeight]),[960,720],'corrected first 100 m² thumbnail dimensions');
   for(const area of [100]){
-    await desktop.locator('#homes .plan-card[data-plan-size="'+area+'"] [data-plan-open]').click();
+    await desktop.locator('#homes .plan-card[data-plan-size="'+area+'"] [data-plan-open]').first().click();
     await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.complete && document.querySelector('#planDialogImage')?.naturalWidth>0);
     assert.match(await desktop.locator('#planDialogTitle').innerText(),new RegExp(String(area)+' м²'));
     const fullHref=await desktop.locator('#planDialogOriginal').getAttribute('href');
