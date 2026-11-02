@@ -18,9 +18,9 @@ try {
   assert.equal(await desktop.locator('.plan-card-body').count(),0,'remove all text below floor plans');
   assert.equal(await desktop.locator('[data-deck-position]').count(),0,'no visible card counters');
   assert.equal(await desktop.locator('#homes .plan-stack').count(),3,'compact stacked galleries');
-  assert.equal(await desktop.locator('#homes .plan-column').count(),3,'three independent columns');
-  assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.dataset.planArea)),['80','100','120']);
-  assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.querySelectorAll('.plan-card').length)),[3,1,1]);
+  assert.equal(await desktop.locator('#homes .plan-column').count(),2,'no unverified 120 m² column');
+  assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.dataset.planArea)),['80','100']);
+  assert.deepEqual(await desktop.locator('.plan-column').evaluateAll(cols=>cols.map(c=>c.querySelectorAll('.plan-card').length)),[3,2]);
   assert.equal(await desktop.locator('#photoSlider > img').count(),11,'hero, views, masterplan and homes retained');
   assert.equal(await desktop.locator('.contract-card').count(),2,'exactly two contracts');
   assert.equal(await desktop.locator('.plan-zoom').count(),0,'no enlarge button on plan cards');
@@ -46,17 +46,17 @@ try {
   await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.naturalWidth>0);
   await desktop.locator('#planDialogClose').click();
   assert.equal(await desktop.locator('#planDialog').evaluate(el=>el.open),false,'plan modal closes');
-  assert.equal(await desktop.locator('#homes [data-plan-size="100"] img').getAttribute('src'),'assets/images/plans/100-01-v2-thumb.webp','new 100 m² thumbnail must be used');
-  assert.deepEqual(await desktop.locator('#homes [data-plan-size="100"] img').evaluate(el=>[el.naturalWidth,el.naturalHeight]),[960,720],'new 100 m² thumbnail dimensions');
-  for(const area of [100,120]){
+  assert.equal(await desktop.locator('#homes [data-plan-size="100"] img').first().getAttribute('src'),'assets/images/plans/100-01-corrected-thumb.webp','corrected first 100 m² thumbnail used');
+  assert.deepEqual(await desktop.locator('#homes [data-plan-size="100"] img').first().evaluate(el=>[el.naturalWidth,el.naturalHeight]),[960,720],'corrected first 100 m² thumbnail dimensions');
+  for(const area of [100]){
     await desktop.locator('#homes .plan-card[data-plan-size="'+area+'"] [data-plan-open]').click();
     await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.complete && document.querySelector('#planDialogImage')?.naturalWidth>0);
     assert.match(await desktop.locator('#planDialogTitle').innerText(),new RegExp(String(area)+' м²'));
     const fullHref=await desktop.locator('#planDialogOriginal').getAttribute('href');
-    const expected=area===100?'100-01-v2.webp':'120-01.webp';
+    const expected='100-01-corrected.webp';
     assert.ok(fullHref.endsWith(expected),'modal must link selected full size '+area+' m²');
     if(area===100){
-      assert.deepEqual(await desktop.locator('#planDialogImage').evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1448,1086],'full-size newly generated 100 m² plan');
+      assert.deepEqual(await desktop.locator('#planDialogImage').evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1448,1086],'corrected 100 m² plan retains original dimensions');
     }
     await desktop.locator('#planDialogClose').click();
   }
@@ -71,6 +71,17 @@ try {
   await desktop.waitForFunction(()=>document.querySelector('#photoSlider img.active')?.naturalWidth>0,null,{timeout:20000});
   assert.equal(await desktop.locator('a[data-plan-request]').count(),0,'no repeated CTAs below plan cards');
   assert.equal(await desktop.locator('#planDialogEstimate').count(),1,'one CTA inside full-size image modal');
+  assert.equal(await desktop.locator('#homes [data-plan-area="100"] .plan-card').count(),2,'two 100 m² plans available');
+  const hundredDeck=desktop.locator('#planDeck100');
+  await desktop.locator('[data-plan-area="100"] [data-deck-step="1"]').click();
+  await desktop.waitForFunction(()=>document.querySelector('#planDeck100 .plan-card.is-current')?.dataset.planVariant==='05');
+  assert.equal(await hundredDeck.locator('.plan-card.is-current [data-plan-open]').getAttribute('href'),'assets/images/plans/100-02-reclassified.webp','formerly 120 m² plan reclassified as 100 m²');
+  await hundredDeck.locator('.plan-card.is-current [data-plan-open]').click();
+  await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.complete&&document.querySelector('#planDialogImage')?.naturalWidth>0);
+  assert.match(await desktop.locator('#planDialogTitle').innerText(),/100 м²/);
+  assert.deepEqual(await desktop.locator('#planDialogImage').evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1536,1024]);
+  await desktop.locator('#planDialogClose').click();
+  assert.ok((await desktop.locator('#homes .plans-note').innerText()).includes('без учёта террас'),'terraces not counted');
   assert.ok((await desktop.locator('#price').innerText()).includes('100 000 ₽'));
   assert.ok(!(await desktop.locator('body').innerText()).includes('рассрочка'));
   fs.mkdirSync('test-results',{recursive:true});
@@ -92,14 +103,14 @@ try {
   await mobile.waitForFunction(()=>document.querySelector('#photoSlider img.active')?.naturalWidth>0,null,{timeout:20000});
   const columns=await mobile.locator('#planGrid').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
   assert.equal(columns,1,'mobile shows full-width stacked categories');
-  assert.equal(await mobile.locator('#homes .plan-deck').count(),3);
+  assert.equal(await mobile.locator('#homes .plan-deck').count(),2);
   const deckDetails=await mobile.locator('#planDeck80').evaluate(el=>({height:el.getBoundingClientRect().height,overflow:getComputedStyle(el).overflowY}));
   assert.ok(deckDetails.height<=410,'mobile stacked gallery remains compact');
   assert.equal(deckDetails.overflow,'hidden');
   assert.equal(await mobile.locator('.plan-column-count').count(),0);
   await mobile.screenshot({path:'test-results/mobile.png',fullPage:true});
   assert.deepEqual(errors,[],'no uncaught JavaScript errors');
-  console.log('PASS: 3 compact stacked columns, fade-up transitions, 5 full plans, no captions, modal estimate, gallery and map');
+  console.log('PASS: 80 and 100 area groups, terrace exclusion, corrected wall plan, reclassified plan, 5 cards, gallery and map');
 } finally {
   await browser.close();
 }

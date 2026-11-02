@@ -239,3 +239,8 @@ body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
  .plan-dialog-actions{gap:8px;flex-wrap:wrap;justify-content:flex-end}
  .plan-dialog-actions a{font-size:11px}
 }
+
+/* Две категории по реальной площади помещений: 80 и 100 м²; открытые террасы исключены */
+.plans-section .plan-columns{grid-template-columns:repeat(2,minmax(0,1fr));max-width:930px;margin-inline:auto}
+.plans-section .plans-note{max-width:930px;margin:12px auto 0;color:var(--muted);font-size:12px}
+@media(max-width:680px){.plans-section .plan-columns{grid-template-columns:minmax(0,1fr);max-width:100%}}
