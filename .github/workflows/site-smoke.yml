@@ -1,0 +1,41 @@
+name: Site smoke tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/js/**'
+      - 'assets/css/**'
+      - 'assets/images/plans/**'
+      - 'tests/site-e2e.mjs'
+      - '.github/workflows/site-smoke.yml'
+  workflow_dispatch:
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Check JavaScript syntax
+        run: node --check assets/js/app.js
+      - name: Verify desktop and mobile UI
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/mayski-site.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          node tests/site-e2e.mjs
+      - name: Save screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-smoke-screenshots
+          path: test-results/
+          if-no-files-found: ignore
