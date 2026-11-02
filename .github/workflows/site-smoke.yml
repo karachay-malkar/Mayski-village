@@ -25,7 +25,9 @@ jobs:
           npm install --no-save playwright
           npx playwright install --with-deps chromium
       - name: Check JavaScript syntax
-        run: node --check assets/js/app.js
+        run: |
+          node --check assets/js/app.js
+          node --check tests/site-e2e.mjs
       - name: Verify desktop and mobile UI
         run: |
           python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/mayski-site.log 2>&1 &

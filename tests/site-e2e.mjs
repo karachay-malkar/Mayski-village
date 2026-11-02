@@ -29,10 +29,13 @@ try {
   await desktop.locator('#planDialogClose').click();
   assert.equal(await desktop.locator('#planDialog').evaluate(el=>el.open),false,'plan modal closes');
   for(const area of [100,120]){
-    await desktop.locator(`#homes [data-plan-size="${area}"] [data-plan-open]`).click();
+    await desktop.locator('#homes .plan-card[data-plan-size="'+area+'"] [data-plan-open]').click();
     await desktop.waitForFunction(()=>document.querySelector('#planDialogImage')?.complete && document.querySelector('#planDialogImage')?.naturalWidth>0);
     assert.match(await desktop.locator('#planDialogTitle').innerText(),new RegExp(String(area)+' м²'));
-    assert.match(await desktop.locator('#planDialogOriginal').getAttribute('href'),new RegExp(String(area)+'-01\\.webp
+    const fullHref=await desktop.locator('#planDialogOriginal').getAttribute('href');
+    assert.ok(fullHref.endsWith(String(area)+'-01.webp'),'modal must link full size '+area+' m²');
+    await desktop.locator('#planDialogClose').click();
+  }
   await desktop.locator('#map').scrollIntoViewIfNeeded();
   await desktop.waitForFunction(()=>document.querySelectorAll('#mapOverlay .plot-hit').length>0,null,{timeout:25000});
   await desktop.locator('#mapOverlay .plot-hit:not(.is-sold)').first().click({force:true});
