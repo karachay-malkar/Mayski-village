@@ -24,6 +24,8 @@ function initAnalyticsEvents(){
     if(!link) return;
     const href=link.getAttribute('href')||'';
     const label=(link.textContent||'').trim().replace(/\s+/g,' ').slice(0,100);
+    const offer=link.closest('[data-offer]')?.dataset.offer;
+    if(offer) metrikaGoal('offer_select',{offer});
     if(href.includes('wa.me/')) metrikaGoal('whatsapp_click',{label});
     else if(href.startsWith('tel:')) metrikaGoal('phone_click',{label});
     else if(href.includes('yandex.ru/maps')) metrikaGoal('map_click',{label});
@@ -45,16 +47,11 @@ function initAnalyticsEvents(){
 
   [
     ['#price','price_view'],
-    ['#comparison','comparison_view'],
-    ['#homes','homes_view'],
+    ['#homes','plans_view'],
     ['#map','map_view'],
-    ['#benefits','benefits_view'],
+    ['#process','deal_view'],
     ['#visuals','visuals_view'],
-    ['#documents','documents_view'],
-    ['#payment','payment_view'],
-    ['#location','location_view'],
-    ['#builder','builder_view'],
-    ['#contact','contact_view']
+    ['#location','location_view']
   ].forEach(([selector,goal])=>observeOnce(selector,goal));
 }
 
@@ -149,7 +146,15 @@ function fillPanel(id){
   qs('#plotTitle').textContent=plot.title||`Участок ${id}`;
   qs('#plotArea').textContent=plot.areaLabel||'—';
   const plotPrice=qs('#plotPrice');
-  if(plotPrice) plotPrice.textContent=(plot.areaLabel||'').includes('600')?'от 600 000 ₽':'Уточнить';
+  if(plotPrice){
+    const value=Number(plot.areaM2 ?? plot.areaSqm ?? plot.areaSquareMeters);
+    const label=String(plot.areaLabel||'');
+    const exact=label.match(/^\s*(\d+(?:[.,]\d+)?)\s*м²?\s*$/);
+    const m2=Number.isFinite(value)&&value>0?value:(exact?Number(exact[1].replace(',','.')):NaN);
+    plotPrice.textContent=sold?'—':Number.isFinite(m2)&&m2>0
+      ? new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:0}).format(m2*1000)
+      : 'По точной площади';
+  }
 
   const status=qs('#plotStatus');
   if(status){
@@ -262,74 +267,47 @@ async function initMap(){
   }
 }
 
-function initEcoComparison(){
-  const comparison=qs('#comparison');
-  if(!comparison) return;
 
-  const oldPhilosophy=qs('#space');
-  if(oldPhilosophy) oldPhilosophy.remove();
-
-  const title=qs('.section-title',comparison);
-  if(title){
-    title.innerHTML='<span>Новый взгляд на комфорт</span><h2>Пространство — новая роскошь</h2>';
-  }
-
-  const copy=qs('.trend-copy',comparison);
-  if(copy){
-    copy.textContent='Города становятся плотнее и шумнее, а личное пространство — ценнее. Поэтому всё больше людей выбирают свой дом, сад и террасу вдали от плотной застройки, сохраняя доступ к городской инфраструктуре.';
-  }
-
-  const cityLabel=qs('.lifestyle-column--city > small',comparison);
-  const homeLabel=qs('.lifestyle-column--home > small',comparison);
-  if(cityLabel) cityLabel.textContent='Городская квартира';
-  if(homeLabel) homeLabel.textContent='Майский Берег';
-
-  // Lucide icons (ISC License): https://lucide.dev/
-  const iconX='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
-  const iconCheck='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
-  qsa('.compare-mark--no',comparison).forEach(mark=>mark.innerHTML=iconX);
-  qsa('.compare-mark--yes',comparison).forEach(mark=>mark.innerHTML=iconCheck);
-
-  if(!qs('#eco-theme-20260821')){
-    const style=document.createElement('style');
-    style.id='eco-theme-20260821';
-    style.textContent=`
-      :root{--bg:#f1f3ef;--milk:#fbfcf9;--ink:#1f2922;--muted:#68716b;--accent:#3f5f4a;--dark:#294035;--line:rgba(41,64,53,.14);--shadow:0 24px 70px rgba(41,64,53,.12)}
-      body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
-      .site-header{background:linear-gradient(135deg,rgba(41,64,53,.97),rgba(63,95,74,.94));border:1px solid rgba(207,226,211,.12);box-shadow:0 10px 30px rgba(29,49,38,.22)}
-      .brand span{color:#294035}
-      .hero{background:#294035}
-      .hero-shade{background:linear-gradient(90deg,rgba(41,64,53,.80) 0%,rgba(41,64,53,.58) 36%,rgba(41,64,53,.20) 66%,rgba(41,64,53,0) 86%),linear-gradient(0deg,rgba(29,49,38,.52) 0%,rgba(41,64,53,.12) 55%,rgba(41,64,53,0) 78%)}
-      .hero-inner>p,.contact-section>div>span{color:#c6dbc9}
-      .section-title span{color:#3f5f4a}
-      .button.primary{background:#3f5f4a;box-shadow:0 14px 32px rgba(63,95,74,.24)}
-      .price-intro{background:#294035}
-      .sales-card small,.plot-card>span{color:#3f5f4a}
-      .plot-meta div{background:#eef2ed}
-      .contact-section{background:linear-gradient(135deg,#294035,#3f5f4a)}
-      .comparison-section--trend{padding-top:54px}
-      .comparison-section .section-title{max-width:1000px}
-      .comparison-section .section-title h2{max-width:930px}
-      .comparison-section .trend-copy{max-width:900px;color:#68716b}
-      .lifestyle-column--city{background:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,255,255,.06)),#d7d9d7!important;border-color:#c3c7c3!important;color:#3f4240}
-      .lifestyle-column--city>small{color:#686d69!important}
-      .lifestyle-column--city .lifestyle-row{border-bottom-color:rgba(63,66,64,.13)!important}
-      .lifestyle-column--home{background:linear-gradient(145deg,#294035,#3f5f4a)!important;color:#fff!important;border-color:rgba(63,95,74,.14)!important;box-shadow:0 22px 54px rgba(41,64,53,.18)}
-      .lifestyle-column--home>small{color:#c8ddcb!important}
-      .lifestyle-column--home .lifestyle-row{border-bottom-color:rgba(255,255,255,.14)!important}
-      .compare-mark{background:transparent!important;border:1px solid currentColor;font-size:0}
-      .compare-mark--no{color:#737873!important}
-      .compare-mark--yes{color:#d9eadc!important}
-      .compare-mark svg{display:block;width:20px;height:20px}
-      @media(max-width:720px){.hero-shade{background:linear-gradient(90deg,rgba(41,64,53,.70) 0%,rgba(41,64,53,.38) 76%,rgba(41,64,53,.10) 100%),linear-gradient(0deg,rgba(29,49,38,.78) 0%,rgba(41,64,53,.30) 58%,rgba(41,64,53,0) 82%)}}
-    `;
-    document.head.appendChild(style);
-  }
+function initPlanGallery(){
+  const grid=qs('#planGrid');
+  const dialog=qs('#planDialog');
+  const large=qs('#planDialogImage');
+  const original=qs('#planDialogOriginal');
+  const title=qs('#planDialogTitle');
+  if(!grid||!dialog||!large||!original||!title)return;
+  qsa('[data-plan-direction]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const card=grid.querySelector('.plan-card');
+      if(!card)return;
+      const width=card.getBoundingClientRect().width+12;
+      const direction=Number(btn.dataset.planDirection);
+      const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      grid.scrollBy({left:direction*width,behavior:reduced?'auto':'smooth'});
+    });
+  });
+  qsa('[data-plan-open]',grid).forEach(a=>{
+    a.addEventListener('click',e=>{
+      if(typeof dialog.showModal!=='function')return;
+      e.preventDefault();
+      const src=a.getAttribute('href');
+      const variant=a.closest('.plan-card')?.dataset.planVariant||'';
+      large.src=src;
+      large.alt='Планировка дома 80 м², вариант '+variant;
+      original.href=src;
+      title.textContent='Планировка 80 м² · Вариант '+variant;
+      dialog.showModal();
+      metrikaGoal('plan_open',{variant,area:80});
+    });
+  });
+  qs('#planDialogClose')?.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+  qsa('[data-plan-request]').forEach(a=>a.addEventListener('click',()=>{
+    metrikaGoal('plan_request',{variant:a.dataset.planRequest,area:80});
+  }));
 }
-
-initEcoComparison();
 initWhatsAppLinks();
 initInternalNavigation();
 initPhotoSlider();
 initMap();
+initPlanGallery();
 initAnalyticsEvents();
