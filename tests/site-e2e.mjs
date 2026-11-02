@@ -45,6 +45,14 @@ try {
   await mobile.goto(base,{waitUntil:'domcontentloaded'});
   await mobile.locator('#homes').scrollIntoViewIfNeeded();
   assert.equal(await mobile.locator('#homes .plan-card').count(),3);
+  await mobile.waitForFunction(
+    () => [...document.querySelectorAll('#homes .plan-card img')].every(img=>img.complete&&img.naturalWidth>0),
+    null,{timeout:20000}
+  );
+  await mobile.locator('#map').scrollIntoViewIfNeeded();
+  await mobile.waitForFunction(()=>document.querySelector('#map .map-bg')?.naturalWidth>0,null,{timeout:20000});
+  await mobile.locator('#visuals').scrollIntoViewIfNeeded();
+  await mobile.waitForFunction(()=>document.querySelector('#photoSlider img.active')?.naturalWidth>0,null,{timeout:20000});
   const properties=await mobile.locator('#planGrid').evaluate(el=>({
     overflow:el.scrollWidth>el.clientWidth,
     scrollSnap:getComputedStyle(el).scrollSnapType

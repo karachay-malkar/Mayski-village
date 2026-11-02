@@ -111,3 +111,8 @@ body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
 
 /* Кнопки карусели отображаются, когда карточки прокручиваются горизонтально */
 @media(min-width:761px){.plans-navigation{display:none}}
+
+/* Lucide-style SVG icon controls */
+.plan-arrow svg,.plan-dialog-actions button svg{width:19px;height:19px;display:block}
+.plan-zoom svg{width:15px;height:15px;display:block}
+.location-link svg{width:16px;height:16px;display:inline-block;vertical-align:-3px;margin-left:3px}
