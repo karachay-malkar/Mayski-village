@@ -244,3 +244,10 @@ body{background:linear-gradient(180deg,#f7f8f5,#e8ede8);color:var(--ink)}
 .plans-section .plan-columns{grid-template-columns:repeat(2,minmax(0,1fr));max-width:930px;margin-inline:auto}
 .plans-section .plans-note{max-width:930px;margin:12px auto 0;color:var(--muted);font-size:12px}
 @media(max-width:680px){.plans-section .plan-columns{grid-template-columns:minmax(0,1fr);max-width:100%}}
+
+/* 2026-11-03: снова три равные группы 80 / 100 / 120 м² */
+.plans-section .plan-columns{grid-template-columns:repeat(3,minmax(0,1fr));max-width:1230px}
+.plans-section .plans-note{max-width:1230px}
+@media(max-width:680px){
+ .plans-section .plan-columns{grid-template-columns:minmax(0,1fr);max-width:100%}
+}
